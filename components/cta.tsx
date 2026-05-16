@@ -19,7 +19,7 @@ export default function CTABand() {
           </Reveal>
           <Reveal delay={220}>
             <div className="cta-actions">
-              <a href="https://nexoai.mx/sign-up" className="btn btn-primary"><Glyph name="spark" size={16} /> Probar Nexo AI</a>
+              <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary"><Glyph name="spark" size={16} /> Probar Nexo AI</a>
               <a href="#contacto" className="btn btn-ghost">Hablar con ventas <Glyph name="arrow" size={14} /></a>
             </div>
           </Reveal>

@@ -37,7 +37,7 @@ export default function Hero() {
 
           <Reveal delay={320}>
             <div className="hero-actions">
-              <a href="https://nexoai.mx/sign-up" className="btn btn-primary">
+              <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary">
                 <Glyph name="spark" size={16} /> Probar gratis 30 días
               </a>
               <a href="#producto" className="btn btn-ghost">

@@ -61,7 +61,7 @@ export default function Nav() {
                 </svg>
               )}
             </button>
-            <a href="https://nexoai.mx/sign-in" className="btn btn-ghost nav-signin" style={{ height: 38, padding: "0 16px", fontSize: 13 }}>
+            <a href="https://app.nexoai.mx/sign-in" className="btn btn-ghost nav-signin" style={{ height: 38, padding: "0 16px", fontSize: 13 }}>
               Iniciar sesión
             </a>
             <a href="#contacto" className="btn btn-primary" style={{ height: 38, padding: "0 18px", fontSize: 13 }}>
@@ -94,7 +94,7 @@ export default function Nav() {
             <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>
           ))}
           <div className="nav-mobile-actions">
-            <a href="https://nexoai.mx/sign-in" className="btn btn-ghost" style={{ justifyContent: "center" }}>
+            <a href="https://app.nexoai.mx/sign-in" className="btn btn-ghost" style={{ justifyContent: "center" }}>
               Iniciar sesión
             </a>
             <a href="#contacto" className="btn btn-primary" style={{ justifyContent: "center" }} onClick={() => setMenuOpen(false)}>
