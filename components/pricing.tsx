@@ -150,10 +150,7 @@ export default function Pricing() {
           {tiers.map((t, i) => {
             const displayPrice = annual ? t.annualMonthly : t.monthlyPrice;
             return (
-              <Reveal key={i} delay={i * 80} className={`tier ${t.popular ? "featured" : ""}`}>
-                {t.popular && (
-                  <div className="tier-popular-badge">Más popular</div>
-                )}
+              <Reveal key={i} delay={i * 80} className="tier">
 
                 {/* Header */}
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
