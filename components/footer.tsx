@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Glyph } from "./atoms";
 import type { ComponentProps } from "react";
 
@@ -54,11 +55,10 @@ export default function Footer() {
           <div className="foot-col">
             <h4>Producto</h4>
             <ul>
-              <li><a href="#producto">All-in-One</a></li>
-              <li><a href="#ia">Inteligencia artificial</a></li>
-              <li><a href="#mercado">Análisis de mercado</a></li>
-              <li><a href="#modulos">Módulos</a></li>
-              <li><a href="#precios">Precios</a></li>
+              <li><Link href="/">Inicio</Link></li>
+              <li><Link href="/ia">Inteligencia artificial</Link></li>
+              <li><Link href="/modulos">Módulos</Link></li>
+              <li><Link href="/precios">Precios</Link></li>
             </ul>
           </div>
 
@@ -67,7 +67,7 @@ export default function Footer() {
             <h4>Recursos</h4>
             <ul>
               <li><a href="#">Documentación</a></li>
-              <li><a href="#comparativa">Comparativa 2026</a></li>
+              <li><Link href="/comparativa">Comparativa 2026</Link></li>
               <li><a href="#">Casos de éxito</a></li>
               <li><a href="#">Blog</a></li>
               <li><a href="#">API pública</a></li>
@@ -82,6 +82,7 @@ export default function Footer() {
               <li><a href="mailto:contacto@nexoai.mx?subject=Carreras">Carreras</a></li>
               <li><a href="mailto:contacto@nexoai.mx">contacto@nexoai.mx</a></li>
               <li><a href="https://wa.me/5212213672612">WhatsApp · +52 1 221 367 2612</a></li>
+              <li><Link href="/contacto">Contacto y demo</Link></li>
               <li><a href="#">Términos</a></li>
               <li><a href="#">Privacidad</a></li>
             </ul>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Reveal, Glyph } from "./atoms";
 import type { ComponentProps } from "react";
 
@@ -140,8 +141,53 @@ function AIForecast() {
   );
 }
 
-export default function AIFeatures() {
+export default function AIFeatures({ preview = false }: { preview?: boolean }) {
   const [tab, setTab] = useState(0);
+
+  if (preview) {
+    return (
+      <section className="section tight" id="ia-preview">
+        <div className="shell">
+          <div className="section-head">
+            <Reveal><span className="eyebrow">Inteligencia artificial · Claude API</span></Reveal>
+            <Reveal delay={80}>
+              <h2>Una IA <span className="em">entrenada</span> en bienes raíces.</h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="lead">
+                Cuatro motores de IA conectados a tus datos. Hablan español, conocen el mercado mexicano.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="ai-preview-grid">
+            {feats.map((f, i) => (
+              <Reveal key={i} delay={i * 60}>
+                <div className="ai-feat" style={{ cursor: "default" }}>
+                  <div className="ic"><Glyph name={f.icon} size={20} /></div>
+                  <div style={{ flex: 1 }}>
+                    <div className="fh">
+                      <span>{f.name}</span>
+                      <span className="fid">{f.id}</span>
+                    </div>
+                    <div className="fd">{f.d}</div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={200}>
+            <div style={{ marginTop: 36, textAlign: "center" }}>
+              <Link href="/ia" className="ver-mas">
+                Conocer la IA →
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section" id="ia">
@@ -149,7 +195,7 @@ export default function AIFeatures() {
         <div className="section-head">
           <Reveal><span className="eyebrow">Inteligencia artificial · Claude API</span></Reveal>
           <Reveal delay={80}>
-            <h2>Una IA <span className="em">entrenada</span> en bienes raíces.<br />No un wrapper de ChatGPT.</h2>
+            <h2>Una IA <span className="em">entrenada</span> en bienes raíces.</h2>
           </Reveal>
           <Reveal delay={160}>
             <p className="lead">

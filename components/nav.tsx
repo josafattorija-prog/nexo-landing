@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "./theme-provider";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggle } = useTheme();
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -17,29 +20,38 @@ export default function Nav() {
   }, []);
 
   const navLinks = [
-    { href: "#producto", label: "Producto" },
-    { href: "#ia", label: "IA" },
-    { href: "#modulos", label: "Módulos" },
-    { href: "#comparativa", label: "Comparativa" },
-    { href: "#precios", label: "Precios" },
-    { href: "#contacto", label: "Contacto" },
+    { href: "/",            label: "Inicio" },
+    { href: "/ia",          label: "IA" },
+    { href: "/modulos",     label: "Módulos" },
+    { href: "/comparativa", label: "Comparativa" },
+    { href: "/precios",     label: "Precios" },
+    { href: "/contacto",    label: "Contacto" },
   ];
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <>
       <nav className="nav" style={{ borderBottomColor: scrolled ? "var(--border)" : "transparent" }}>
         <div className="shell nav-inner">
           {/* Logo */}
-          <a href="#" className="nav-logo">
+          <Link href="/" className="nav-logo">
             <Image src="/nexo-logo.png" alt="Nexo AI" width={34} height={34} style={{ borderRadius: 8 }} />
             <span>Nexo<span style={{ color: "var(--accent)" }}>AI</span></span>
             <span className="dot" />
-          </a>
+          </Link>
 
           {/* Center links */}
           <div className="nav-links">
             {navLinks.map(({ href, label }) => (
-              <a key={href} href={href}>{label}</a>
+              <Link
+                key={href}
+                href={href}
+                className={isActive(href) ? "nav-active" : undefined}
+              >
+                {label}
+              </Link>
             ))}
           </div>
 
@@ -64,9 +76,9 @@ export default function Nav() {
             <a href="https://app.nexoai.mx/sign-in" className="btn btn-ghost nav-signin" style={{ height: 38, padding: "0 16px", fontSize: 13 }}>
               Iniciar sesión
             </a>
-            <a href="#contacto" className="btn btn-primary" style={{ height: 38, padding: "0 18px", fontSize: 13 }}>
+            <Link href="/contacto" className="btn btn-primary" style={{ height: 38, padding: "0 18px", fontSize: 13 }}>
               Pedir demo
-            </a>
+            </Link>
             {/* Hamburger */}
             <button
               className="nav-hamburger"
@@ -91,15 +103,22 @@ export default function Nav() {
       {menuOpen && (
         <div className="nav-mobile-menu">
           {navLinks.map(({ href, label }) => (
-            <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>
+            <Link
+              key={href}
+              href={href}
+              className={isActive(href) ? "nav-active" : undefined}
+              onClick={() => setMenuOpen(false)}
+            >
+              {label}
+            </Link>
           ))}
           <div className="nav-mobile-actions">
             <a href="https://app.nexoai.mx/sign-in" className="btn btn-ghost" style={{ justifyContent: "center" }}>
               Iniciar sesión
             </a>
-            <a href="#contacto" className="btn btn-primary" style={{ justifyContent: "center" }} onClick={() => setMenuOpen(false)}>
+            <Link href="/contacto" className="btn btn-primary" style={{ justifyContent: "center" }} onClick={() => setMenuOpen(false)}>
               Pedir demo
-            </a>
+            </Link>
           </div>
         </div>
       )}

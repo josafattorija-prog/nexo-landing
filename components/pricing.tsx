@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Reveal, Glyph } from "./atoms";
 
 type Tier = {
@@ -116,8 +117,114 @@ const tiers: Tier[] = [
   },
 ];
 
-export default function Pricing() {
+const PREVIEW_FEAT_COUNT = 3;
+
+function TierCard({ t, displayPrice, annual, previewOnly = false }: {
+  t: Tier;
+  displayPrice: number;
+  annual: boolean;
+  previewOnly?: boolean;
+}) {
+  const featsToShow = previewOnly ? t.feats.slice(0, PREVIEW_FEAT_COUNT) : t.feats;
+  const remaining = t.feats.length - PREVIEW_FEAT_COUNT;
+
+  return (
+    <div className="tier">
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+        <span style={{ fontSize: 32, lineHeight: 1, flexShrink: 0 }}>{t.icon}</span>
+        <div>
+          <h3 style={{ fontSize: 20, marginBottom: 4 }}>{t.name}</h3>
+          <div className="tagline">{t.tag}</div>
+        </div>
+      </div>
+
+      {/* Price */}
+      <div>
+        {displayPrice === 0 ? (
+          <div style={{ fontSize: 42, fontWeight: 900, letterSpacing: "-.02em", lineHeight: 1 }}>
+            Gratis
+          </div>
+        ) : (
+          <div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 2, lineHeight: 1 }}>
+              <span style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", marginTop: 6 }}>$</span>
+              <span style={{ fontSize: 46, fontWeight: 900, letterSpacing: "-.03em", color: "var(--text)" }}>
+                {displayPrice.toLocaleString("es-MX")}
+              </span>
+              <span style={{ fontSize: 13, color: "var(--muted)", fontFamily: "var(--font-mono)", fontWeight: 500, marginTop: 8, marginLeft: 4 }}>
+                MXN/mes
+              </span>
+            </div>
+            {annual && t.annualTotal > 0 && (
+              <div style={{ fontSize: 13, color: "var(--accent)", fontFamily: "var(--font-mono)", fontWeight: 500, marginTop: 4 }}>
+                ${t.annualTotal.toLocaleString("es-MX")} MXN/año facturado anualmente
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Features */}
+      <ul style={{ flex: 1 }}>
+        {featsToShow.map((f, fi) => (
+          <li key={fi} className={f.startsWith(INHERIT_PREFIX) ? "tier-inherit" : ""}>
+            {f}
+          </li>
+        ))}
+        {previewOnly && remaining > 0 && (
+          <li style={{ color: "var(--muted)", fontStyle: "italic" }}>+ {remaining} más…</li>
+        )}
+      </ul>
+
+      {/* CTA */}
+      <a
+        href={t.href}
+        className={`btn tier-cta ${t.ctaStyle === "primary" ? "btn-primary" : "btn-ghost"}`}
+      >
+        {t.cta}
+        <Glyph name="arrow" size={14} />
+      </a>
+    </div>
+  );
+}
+
+export default function Pricing({ preview = false }: { preview?: boolean }) {
   const [annual, setAnnual] = useState(false);
+
+  if (preview) {
+    return (
+      <section className="section tight" id="precios-preview">
+        <div className="shell">
+          <div className="section-head">
+            <Reveal><span className="eyebrow">Precios · MXN</span></Reveal>
+            <Reveal delay={80}>
+              <h2>Elige el plan perfecto<br /><span className="em">para tu agencia</span></h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="lead">Empieza gratis y escala cuando estés listo. Sin contratos.</p>
+            </Reveal>
+          </div>
+
+          <div className="tier-grid-preview">
+            {tiers.map((t, i) => (
+              <Reveal key={i} delay={i * 60}>
+                <TierCard t={t} displayPrice={t.monthlyPrice} annual={false} previewOnly />
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={200}>
+            <div style={{ marginTop: 36, textAlign: "center" }}>
+              <Link href="/precios" className="ver-mas">
+                Ver todos los planes →
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section" id="precios">
@@ -150,60 +257,8 @@ export default function Pricing() {
           {tiers.map((t, i) => {
             const displayPrice = annual ? t.annualMonthly : t.monthlyPrice;
             return (
-              <Reveal key={i} delay={i * 80} className="tier">
-
-                {/* Header */}
-                <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
-                  <span style={{ fontSize: 32, lineHeight: 1, flexShrink: 0 }}>{t.icon}</span>
-                  <div>
-                    <h3 style={{ fontSize: 20, marginBottom: 4 }}>{t.name}</h3>
-                    <div className="tagline">{t.tag}</div>
-                  </div>
-                </div>
-
-                {/* Price */}
-                <div>
-                  {displayPrice === 0 ? (
-                    <div style={{ fontSize: 42, fontWeight: 900, letterSpacing: "-.02em", lineHeight: 1 }}>
-                      Gratis
-                    </div>
-                  ) : (
-                    <div>
-                      <div style={{ display: "flex", alignItems: "flex-start", gap: 2, lineHeight: 1 }}>
-                        <span style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", marginTop: 6 }}>$</span>
-                        <span style={{ fontSize: 46, fontWeight: 900, letterSpacing: "-.03em", color: "var(--text)" }}>
-                          {displayPrice.toLocaleString("es-MX")}
-                        </span>
-                        <span style={{ fontSize: 13, color: "var(--muted)", fontFamily: "var(--font-mono)", fontWeight: 500, marginTop: 8, marginLeft: 4 }}>
-                          MXN/mes
-                        </span>
-                      </div>
-                      {annual && t.annualTotal > 0 && (
-                        <div style={{ fontSize: 13, color: "var(--accent)", fontFamily: "var(--font-mono)", fontWeight: 500, marginTop: 4 }}>
-                          ${t.annualTotal.toLocaleString("es-MX")} MXN/año facturado anualmente
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* Features */}
-                <ul style={{ flex: 1 }}>
-                  {t.feats.map((f, fi) => (
-                    <li key={fi} className={f.startsWith(INHERIT_PREFIX) ? "tier-inherit" : ""}>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <a
-                  href={t.href}
-                  className={`btn tier-cta ${t.ctaStyle === "primary" ? "btn-primary" : "btn-ghost"}`}
-                >
-                  {t.cta}
-                  <Glyph name="arrow" size={14} />
-                </a>
+              <Reveal key={i} delay={i * 80}>
+                <TierCard t={t} displayPrice={displayPrice} annual={annual} />
               </Reveal>
             );
           })}

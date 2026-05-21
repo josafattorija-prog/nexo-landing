@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import Nav from "@/components/nav";
+import Footer from "@/components/footer";
+import PageTransition from "@/components/page-transition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,7 +21,10 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nexo AI — La IA del sector inmobiliario",
+  title: {
+    default: "Nexo AI — La IA del sector inmobiliario",
+    template: "%s | Nexo AI",
+  },
   description:
     "El primer CRM inmobiliario All-in-One de México. Publica en 30+ portales, automatiza el ciclo de venta y cierra más operaciones con IA entrenada en bienes raíces.",
   openGraph: {
@@ -39,7 +46,13 @@ export default function RootLayout({
   return (
     <html lang="es-MX" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
-        {children}
+        <ThemeProvider>
+          <Nav />
+          <main>
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
