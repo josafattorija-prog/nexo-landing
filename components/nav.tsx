@@ -23,6 +23,7 @@ export default function Nav() {
     { href: "/",            label: "Inicio" },
     { href: "/ia",          label: "IA" },
     { href: "/modulos",     label: "Módulos" },
+    { href: "/propiedades", label: "Propiedades" },
     { href: "/comparativa", label: "Comparativa" },
     { href: "/precios",     label: "Precios" },
     { href: "/contacto",    label: "Contacto" },
