@@ -38,7 +38,7 @@ const tiers: Tier[] = [
       "Hasta 10 propiedades",
       "1 usuario",
       "10 créditos IA / mes",
-      "App móvil iOS + Android",
+      "Inbox Omnicanal",
       "Ficha PDF de propiedad",
       "Publicación en portales (básico)",
     ],
@@ -48,9 +48,9 @@ const tiers: Tier[] = [
     icon: "🚀",
     name: "Starter",
     tag: "Para asesores que arrancan en serio",
-    monthlyPrice: 500,
-    annualMonthly: 400,
-    annualTotal: 4800,
+    monthlyPrice: 600,
+    annualMonthly: 420,
+    annualTotal: 5040,
     href: "https://app.nexoai.mx/sign-up?plan=STARTER",
     cta: "Iniciar prueba gratis 30 días",
     ctaStyle: "ghost",
@@ -61,7 +61,7 @@ const tiers: Tier[] = [
       "3 usuarios",
       "100 créditos IA / mes",
       "CRM Pipeline (Kanban)",
-      "Inbox Omnicanal",
+      "Inbox Omnicanal con IA",
       "Descripciones con IA",
       "Publicación en Meta (Facebook + Instagram)",
       "Sin branding NexoAI",
@@ -73,22 +73,20 @@ const tiers: Tier[] = [
     name: "Pro",
     tag: "Para inmobiliarias que escalan",
     monthlyPrice: 800,
-    annualMonthly: 640,
-    annualTotal: 7680,
+    annualMonthly: 560,
+    annualTotal: 6720,
     href: "#contacto",
     cta: "Contactar a ventas",
     ctaStyle: "ghost",
     popular: true,
     feats: [
-      "Hasta 200 propiedades",
-      "10 usuarios",
-      "1,000 créditos IA / mes",
       "Todo lo de Starter +",
+      "Hasta 50 propiedades",
+      "5 usuarios",
+      "300 créditos IA / mes",
       "Asistente IA con Claude",
       "Automatizaciones visuales",
       "Análisis de mercado por zona",
-      "Crédito hipotecario · 4 bancos",
-      "Publicación en MercadoLibre",
     ],
   },
   {
@@ -97,8 +95,8 @@ const tiers: Tier[] = [
     name: "Enterprise",
     tag: "IA real para equipos grandes",
     monthlyPrice: 1000,
-    annualMonthly: 800,
-    annualTotal: 9600,
+    annualMonthly: 700,
+    annualTotal: 8400,
     href: "#contacto",
     cta: "Contactar a ventas",
     ctaStyle: "ghost",
@@ -248,7 +246,7 @@ export default function Pricing({ preview = false }: { preview?: boolean }) {
             </button>
             <button className={annual ? "active" : ""} onClick={() => setAnnual(true)}>
               Anual
-              <span className="pricing-badge">Ahorra 20%</span>
+              <span className="pricing-badge">Ahorra 30%</span>
             </button>
           </div>
         </div>
