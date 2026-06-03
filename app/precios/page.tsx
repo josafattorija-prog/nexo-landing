@@ -7,11 +7,11 @@ import { Reveal, Glyph } from "@/components/atoms";
 export const metadata: Metadata = {
   title: "Precios y planes",
   description:
-    "Planes Base (gratis), Starter ($500 MXN), Pro ($800 MXN) y Enterprise ($1,000 MXN). Sin contratos, cancela cuando quieras.",
+    "Planes Base (gratis), Starter ($600 MXN), Pro ($800 MXN) y Enterprise ($1,000 MXN). Sin contratos, cancela cuando quieras.",
   openGraph: {
     title: "Precios — Nexo AI",
     description: "Empieza gratis y escala cuando estés listo. Sin contratos, cancela cuando quieras.",
-    url: "https://nexoai.mx/precios",
+    url: "https://nexoai.mx/precios"
   },
 };
 
