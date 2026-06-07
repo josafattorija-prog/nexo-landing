@@ -4,14 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import { Reveal, Glyph } from "./atoms";
 
+type Interval = "monthly" | "quarterly" | "semiannual" | "annual";
+
+type Price = { monthly: number; total: number };
+
 type Tier = {
   id: string;
   icon: string;
   name: string;
   tag: string;
-  monthlyPrice: number;
-  annualMonthly: number;
-  annualTotal: number;
+  prices: Record<Interval, Price>;
   href: string;
   cta: string;
   ctaStyle: "primary" | "ghost";
@@ -21,15 +23,26 @@ type Tier = {
 
 const INHERIT_PREFIX = "Todo lo de";
 
+// 4 formas de pago con sus descuentos (sobre el precio mensual × meses).
+const INTERVALS: { id: Interval; label: string; discount: string | null; months: number; noun: string }[] = [
+  { id: "monthly",    label: "Mensual",     discount: null,  months: 1,  noun: "mes" },
+  { id: "quarterly",  label: "Trimestral",  discount: "−10%", months: 3, noun: "trimestre" },
+  { id: "semiannual", label: "Semestral",   discount: "−20%", months: 6, noun: "semestre" },
+  { id: "annual",     label: "Anual",       discount: "−30%", months: 12, noun: "año" },
+];
+
 const tiers: Tier[] = [
   {
     id: "BASE · 01",
     icon: "🌱",
     name: "Base",
     tag: "Empieza gratis para siempre",
-    monthlyPrice: 0,
-    annualMonthly: 0,
-    annualTotal: 0,
+    prices: {
+      monthly:    { monthly: 0, total: 0 },
+      quarterly:  { monthly: 0, total: 0 },
+      semiannual: { monthly: 0, total: 0 },
+      annual:     { monthly: 0, total: 0 },
+    },
     href: "https://app.nexoai.mx/sign-up?plan=BASE",
     cta: "Empezar gratis",
     ctaStyle: "ghost",
@@ -39,8 +52,10 @@ const tiers: Tier[] = [
       "1 usuario",
       "10 créditos IA / mes",
       "Inbox Omnicanal",
+      "CRM Pipeline (Kanban)",
+      "Publicación en Meta (Facebook + Instagram)",
+      "Portal web personalizado",
       "Ficha PDF de propiedad",
-      "Publicación en portales (básico)",
     ],
   },
   {
@@ -48,9 +63,12 @@ const tiers: Tier[] = [
     icon: "🚀",
     name: "Starter",
     tag: "Para asesores que arrancan en serio",
-    monthlyPrice: 600,
-    annualMonthly: 420,
-    annualTotal: 5040,
+    prices: {
+      monthly:    { monthly: 600, total: 600 },
+      quarterly:  { monthly: 540, total: 1620 },
+      semiannual: { monthly: 480, total: 2880 },
+      annual:     { monthly: 420, total: 5040 },
+    },
     href: "https://app.nexoai.mx/sign-up?plan=STARTER",
     cta: "Iniciar prueba gratis 30 días",
     ctaStyle: "ghost",
@@ -60,10 +78,9 @@ const tiers: Tier[] = [
       "Hasta 30 propiedades",
       "3 usuarios",
       "100 créditos IA / mes",
-      "CRM Pipeline (Kanban)",
-      "Inbox Omnicanal con IA",
+      "IA en Inbox y CRM",
       "Descripciones con IA",
-      "Publicación en Meta (Facebook + Instagram)",
+      "Publicación a portales externos",
       "Sin branding NexoAI",
     ],
   },
@@ -72,11 +89,14 @@ const tiers: Tier[] = [
     icon: "⚡",
     name: "Pro",
     tag: "Para inmobiliarias que escalan",
-    monthlyPrice: 800,
-    annualMonthly: 560,
-    annualTotal: 6720,
-    href: "#contacto",
-    cta: "Contactar a ventas",
+    prices: {
+      monthly:    { monthly: 800, total: 800 },
+      quarterly:  { monthly: 720, total: 2160 },
+      semiannual: { monthly: 640, total: 3840 },
+      annual:     { monthly: 560, total: 6720 },
+    },
+    href: "https://app.nexoai.mx/sign-up?plan=PRO",
+    cta: "Iniciar prueba gratis 30 días",
     ctaStyle: "ghost",
     popular: true,
     feats: [
@@ -89,42 +109,20 @@ const tiers: Tier[] = [
       "Análisis de mercado por zona",
     ],
   },
-  {
-    id: "ENT · 04",
-    icon: "🏆",
-    name: "Enterprise",
-    tag: "IA real para equipos grandes",
-    monthlyPrice: 1000,
-    annualMonthly: 700,
-    annualTotal: 8400,
-    href: "#contacto",
-    cta: "Contactar a ventas",
-    ctaStyle: "ghost",
-    popular: false,
-    feats: [
-      "Propiedades ilimitadas",
-      "Usuarios ilimitados",
-      "Créditos IA ilimitados",
-      "Todo lo de Pro +",
-      "Contratos digitales NOM-151",
-      "IA Premium (Claude Opus)",
-      "Dominio personalizado",
-      "API pública",
-      "Soporte prioritario 24/7",
-    ],
-  },
 ];
 
 const PREVIEW_FEAT_COUNT = 3;
 
-function TierCard({ t, displayPrice, annual, previewOnly = false }: {
+function TierCard({ t, interval, previewOnly = false }: {
   t: Tier;
-  displayPrice: number;
-  annual: boolean;
+  interval: Interval;
   previewOnly?: boolean;
 }) {
   const featsToShow = previewOnly ? t.feats.slice(0, PREVIEW_FEAT_COUNT) : t.feats;
   const remaining = t.feats.length - PREVIEW_FEAT_COUNT;
+  const ivConfig = INTERVALS.find((i) => i.id === interval)!;
+  const price = t.prices[interval];
+  const showBilled = interval !== "monthly" && price.total > 0;
 
   return (
     <div className="tier">
@@ -139,7 +137,7 @@ function TierCard({ t, displayPrice, annual, previewOnly = false }: {
 
       {/* Price */}
       <div>
-        {displayPrice === 0 ? (
+        {price.monthly === 0 ? (
           <div style={{ fontSize: 42, fontWeight: 900, letterSpacing: "-.02em", lineHeight: 1 }}>
             Gratis
           </div>
@@ -148,15 +146,15 @@ function TierCard({ t, displayPrice, annual, previewOnly = false }: {
             <div style={{ display: "flex", alignItems: "flex-start", gap: 2, lineHeight: 1 }}>
               <span style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", marginTop: 6 }}>$</span>
               <span style={{ fontSize: 46, fontWeight: 900, letterSpacing: "-.03em", color: "var(--text)" }}>
-                {displayPrice.toLocaleString("es-MX")}
+                {price.monthly.toLocaleString("es-MX")}
               </span>
               <span style={{ fontSize: 13, color: "var(--muted)", fontFamily: "var(--font-mono)", fontWeight: 500, marginTop: 8, marginLeft: 4 }}>
                 MXN/mes
               </span>
             </div>
-            {annual && t.annualTotal > 0 && (
+            {showBilled && (
               <div style={{ fontSize: 13, color: "var(--accent)", fontFamily: "var(--font-mono)", fontWeight: 500, marginTop: 4 }}>
-                ${t.annualTotal.toLocaleString("es-MX")} MXN/año facturado anualmente
+                ${price.total.toLocaleString("es-MX")} MXN facturado por {ivConfig.noun} ({ivConfig.months} meses)
               </div>
             )}
           </div>
@@ -188,7 +186,7 @@ function TierCard({ t, displayPrice, annual, previewOnly = false }: {
 }
 
 export default function Pricing({ preview = false }: { preview?: boolean }) {
-  const [annual, setAnnual] = useState(false);
+  const [interval, setInterval] = useState<Interval>("monthly");
 
   if (preview) {
     return (
@@ -207,7 +205,7 @@ export default function Pricing({ preview = false }: { preview?: boolean }) {
           <div className="tier-grid-preview">
             {tiers.map((t, i) => (
               <Reveal key={i} delay={i * 60}>
-                <TierCard t={t} displayPrice={t.monthlyPrice} annual={false} previewOnly />
+                <TierCard t={t} interval="monthly" previewOnly />
               </Reveal>
             ))}
           </div>
@@ -241,25 +239,25 @@ export default function Pricing({ preview = false }: { preview?: boolean }) {
           </Reveal>
 
           <div className="pricing-tabs">
-            <button className={!annual ? "active" : ""} onClick={() => setAnnual(false)}>
-              Mensual
-            </button>
-            <button className={annual ? "active" : ""} onClick={() => setAnnual(true)}>
-              Anual
-              <span className="pricing-badge">Ahorra 30%</span>
-            </button>
+            {INTERVALS.map((iv) => (
+              <button
+                key={iv.id}
+                className={interval === iv.id ? "active" : ""}
+                onClick={() => setInterval(iv.id)}
+              >
+                {iv.label}
+                {iv.discount && <span className="pricing-badge">{iv.discount}</span>}
+              </button>
+            ))}
           </div>
         </div>
 
         <div className="tier-grid">
-          {tiers.map((t, i) => {
-            const displayPrice = annual ? t.annualMonthly : t.monthlyPrice;
-            return (
-              <Reveal key={i} delay={i * 80}>
-                <TierCard t={t} displayPrice={displayPrice} annual={annual} />
-              </Reveal>
-            );
-          })}
+          {tiers.map((t, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <TierCard t={t} interval={interval} />
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

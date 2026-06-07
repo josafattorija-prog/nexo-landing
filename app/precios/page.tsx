@@ -7,7 +7,7 @@ import { Reveal, Glyph } from "@/components/atoms";
 export const metadata: Metadata = {
   title: "Precios y planes",
   description:
-    "Planes Base (gratis), Starter ($600 MXN), Pro ($800 MXN) y Enterprise ($1,000 MXN). Sin contratos, cancela cuando quieras.",
+    "Planes Base (gratis), Starter ($600 MXN/mes) y Pro ($800 MXN/mes). Paga mensual, trimestral, semestral o anual (hasta 30% de ahorro). Sin contratos, cancela cuando quieras.",
   openGraph: {
     title: "Precios — Nexo AI",
     description: "Empieza gratis y escala cuando estés listo. Sin contratos, cancela cuando quieras.",

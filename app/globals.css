@@ -512,7 +512,7 @@ p { margin: 0; line-height: 1.55; }
 .pricing-tabs button.active { background: var(--tabs-active-bg); color: var(--tabs-active-text); }
 .pricing-badge { padding: 2px 10px; border-radius: 999px; background: var(--accent); color: #03130A; font-size: 11px; font-weight: 700; font-family: var(--font-mono), monospace; letter-spacing: .04em; }
 button:not(.active) .pricing-badge { background: rgba(52,211,153,.2); color: var(--accent); }
-.tier-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 36px; }
+.tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 36px; max-width: 980px; margin-left: auto; margin-right: auto; }
 @media (max-width: 1100px) { .tier-grid { grid-template-columns: repeat(2,1fr); } }
 @media (max-width: 600px) { .tier-grid { grid-template-columns: 1fr; } }
 .tier { border: 1.5px solid var(--border-card); border-radius: 20px; padding: 24px; background: var(--tier-bg); position: relative; display: flex; flex-direction: column; gap: 16px; }
@@ -768,7 +768,7 @@ footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; color: 
 /* Pricing preview 4-col grid */
 .tier-grid-preview {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin-top: 40px;
   align-items: start;
