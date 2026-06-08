@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useMemo } from "react";
 
-// ── Types ──────────────────────────────────────────────────────────────────
 interface PropertyOrg {
   name: string;
   phone: string | null;
@@ -36,12 +35,24 @@ interface BolsaProperty {
 const CRM_URL = "https://app.nexoai.mx";
 
 const TYPE_LABEL: Record<string, string> = {
-  HOUSE: "Casa", APARTMENT: "Depto", OFFICE: "Oficina", LAND: "Terreno",
-  COMMERCIAL: "Local", WAREHOUSE: "Bodega", BUILDING: "Edificio",
-  VILLA: "Villa", PENTHOUSE: "PH", STUDIO: "Estudio", TOWNHOUSE: "TH",
+  CASA: "Casa",
+  DEPARTAMENTO: "Depto",
+  OFICINA: "Oficina",
+  TERRENO: "Terreno",
+  LOCAL_COMERCIAL: "Local",
+  BODEGA: "Bodega",
+  EDIFICIO: "Edificio",
+  RANCHO: "Rancho",
+  DESARROLLO: "Desarrollo",
+  OTRO: "Otro",
 };
+
 const OP_LABEL: Record<string, string> = {
-  SALE: "Venta", RENT: "Renta", RENT_SALE: "Venta/Renta",
+  SALE: "Venta",
+  RENT: "Renta",
+  BOTH: "Venta/Renta",
+  TRANSFER: "Traspaso",
+  PRE_SALE: "Preventa",
 };
 
 function fmtPrice(price: string | null, currency: string | null): string {
@@ -57,7 +68,7 @@ function fmtPrice(price: string | null, currency: string | null): string {
 
 function PropertyCard({ p }: { p: BolsaProperty }) {
   const image = p.images[0]?.url;
-  const isForSale = p.operation === "SALE" || p.operation === "RENT_SALE";
+  const isForSale = p.operation === "SALE" || p.operation === "BOTH" || p.operation === "PRE_SALE";
   const price = isForSale ? p.price : p.priceRent;
   const location = [p.neighborhood, p.city].filter(Boolean).join(", ");
   const portalUrl = p.slug && p.organization.slug
@@ -100,7 +111,7 @@ function PropertyCard({ p }: { p: BolsaProperty }) {
         <div className="prop-specs">
           {p.bedrooms != null && <span>🛏 {p.bedrooms} rec</span>}
           {p.bathrooms != null && <span>🚿 {p.bathrooms} baños</span>}
-          {p.area != null && <span>📐 {p.area} {p.areaUnit === "M2" ? "m²" : (p.areaUnit ?? "m²")}</span>}
+          {p.area != null && <span>📐 {p.area} {p.areaUnit ?? "m²"}</span>}
         </div>
         <div className="prop-price">{fmtPrice(price, p.currency)}</div>
         <div className="prop-org">
@@ -118,17 +129,17 @@ function PropertyCard({ p }: { p: BolsaProperty }) {
 }
 
 const TYPES = [
-  { value: "", label: "Todos" },
-  { value: "HOUSE", label: "Casas" },
-  { value: "APARTMENT", label: "Deptos" },
-  { value: "LAND", label: "Terrenos" },
-  { value: "OFFICE", label: "Oficinas" },
-  { value: "COMMERCIAL", label: "Locales" },
+  { value: "",               label: "Todos"    },
+  { value: "CASA",           label: "Casas"    },
+  { value: "DEPARTAMENTO",   label: "Deptos"   },
+  { value: "TERRENO",        label: "Terrenos" },
+  { value: "OFICINA",        label: "Oficinas" },
+  { value: "LOCAL_COMERCIAL", label: "Locales" },
 ];
 const OPS = [
-  { value: "", label: "Venta y Renta" },
-  { value: "SALE", label: "Venta" },
-  { value: "RENT", label: "Renta" },
+  { value: "",     label: "Venta y Renta" },
+  { value: "SALE", label: "Venta"         },
+  { value: "RENT", label: "Renta"         },
 ];
 
 export default function PropiedadesPage() {
@@ -140,43 +151,32 @@ export default function PropiedadesPage() {
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  // Fetch único al montar — sin parámetros de filtro al servidor
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(false);
     fetch(`${CRM_URL}/api/public/bolsa`)
-      .then(r => {
-        if (!r.ok) throw new Error("API error");
-        return r.json();
-      })
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
       .then((data: BolsaProperty[]) => {
         if (!cancelled) { setAll(data); setLoading(false); }
       })
-      .catch(() => {
-        if (!cancelled) { setError(true); setLoading(false); }
-      });
+      .catch(() => { if (!cancelled) { setError(true); setLoading(false); } });
     return () => { cancelled = true; };
   }, []);
 
-  // Debounce solo para el campo de texto (150ms en cliente es suficiente)
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(search), 150);
     return () => clearTimeout(t);
   }, [search]);
 
-  // Filtrado 100% cliente — instantáneo, sin fetch adicional
   const properties = useMemo(() => {
     const needle = debouncedSearch.trim().toLowerCase();
     return all.filter(p => {
       if (typeFilter && p.type !== typeFilter) return false;
-      if (opFilter) {
-        if (opFilter === "SALE" && p.operation !== "SALE" && p.operation !== "RENT_SALE") return false;
-        if (opFilter === "RENT" && p.operation !== "RENT" && p.operation !== "RENT_SALE") return false;
-      }
+      if (opFilter === "SALE" && p.operation !== "SALE" && p.operation !== "BOTH" && p.operation !== "PRE_SALE") return false;
+      if (opFilter === "RENT" && p.operation !== "RENT" && p.operation !== "BOTH") return false;
       if (needle) {
-        const hay = [p.title, p.city, p.state, p.neighborhood]
-          .filter(Boolean).join(" ").toLowerCase();
+        const hay = [p.title, p.city, p.state, p.neighborhood].filter(Boolean).join(" ").toLowerCase();
         if (!hay.includes(needle)) return false;
       }
       return true;
@@ -184,12 +184,7 @@ export default function PropiedadesPage() {
   }, [all, typeFilter, opFilter, debouncedSearch]);
 
   const hasFilters = typeFilter || opFilter || search;
-
-  const clearFilters = () => {
-    setSearch("");
-    setTypeFilter("");
-    setOpFilter("");
-  };
+  const clearFilters = () => { setSearch(""); setTypeFilter(""); setOpFilter(""); };
 
   return (
     <>
@@ -219,28 +214,20 @@ export default function PropiedadesPage() {
                 className="prop-search"
               />
               {search && (
-                <button className="prop-search-clear" onClick={() => setSearch("")} aria-label="Limpiar búsqueda">
-                  ✕
-                </button>
+                <button className="prop-search-clear" onClick={() => setSearch("")} aria-label="Limpiar">✕</button>
               )}
             </div>
             <div className="prop-chip-row">
               {TYPES.map(t => (
-                <button
-                  key={t.value}
-                  onClick={() => setTypeFilter(t.value)}
-                  className={`chip${typeFilter === t.value ? " chip-primary" : ""}`}
-                >
+                <button key={t.value} onClick={() => setTypeFilter(t.value)}
+                  className={`chip${typeFilter === t.value ? " chip-primary" : ""}`}>
                   {t.label}
                 </button>
               ))}
               <div className="prop-sep" />
               {OPS.map(o => (
-                <button
-                  key={o.value}
-                  onClick={() => setOpFilter(o.value)}
-                  className={`chip${opFilter === o.value ? " chip-primary" : ""}`}
-                >
+                <button key={o.value} onClick={() => setOpFilter(o.value)}
+                  className={`chip${opFilter === o.value ? " chip-primary" : ""}`}>
                   {o.label}
                 </button>
               ))}
@@ -266,23 +253,15 @@ export default function PropiedadesPage() {
             <div className="prop-state">
               <span style={{ fontSize: 40 }}>🏠</span>
               <p style={{ color: "var(--muted)" }}>
-                {hasFilters
-                  ? "Sin resultados para esos filtros."
-                  : "Aún no hay propiedades en bolsa."}
+                {hasFilters ? "Sin resultados para esos filtros." : "Aún no hay propiedades en bolsa."}
               </p>
-              {hasFilters && (
-                <button className="btn btn-ghost" onClick={clearFilters}>
-                  Limpiar filtros
-                </button>
-              )}
+              {hasFilters && <button className="btn btn-ghost" onClick={clearFilters}>Limpiar filtros</button>}
             </div>
           ) : (
             <>
               <p className="prop-count">
                 {properties.length} propiedad{properties.length !== 1 ? "es" : ""} disponible{properties.length !== 1 ? "s" : ""}
-                {all.length !== properties.length && (
-                  <span style={{ marginLeft: 8, opacity: .5 }}>de {all.length}</span>
-                )}
+                {all.length !== properties.length && <span style={{ marginLeft: 8, opacity: .5 }}>de {all.length}</span>}
               </p>
               <div className="prop-grid">
                 {properties.map(p => <PropertyCard key={p.id} p={p} />)}
