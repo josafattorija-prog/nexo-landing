@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 interface PropertyOrg {
@@ -132,38 +132,64 @@ const OPS = [
 ];
 
 export default function PropiedadesPage() {
-  const [properties, setProperties] = useState<BolsaProperty[]>([]);
+  const [all, setAll] = useState<BolsaProperty[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [typeFilter, setTypeFilter] = useState("");
   const [opFilter, setOpFilter] = useState("");
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  const fetchProps = useCallback(async () => {
+  // Fetch único al montar — sin parámetros de filtro al servidor
+  useEffect(() => {
+    let cancelled = false;
     setLoading(true);
     setError(false);
-    try {
-      const params = new URLSearchParams();
-      if (typeFilter) params.set("type", typeFilter);
-      if (opFilter) params.set("operation", opFilter);
-      if (query) params.set("search", query);
-      const res = await fetch(`${CRM_URL}/api/public/bolsa?${params}`);
-      if (!res.ok) throw new Error("API error");
-      setProperties(await res.json());
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, [typeFilter, opFilter, query]);
+    fetch(`${CRM_URL}/api/public/bolsa`)
+      .then(r => {
+        if (!r.ok) throw new Error("API error");
+        return r.json();
+      })
+      .then((data: BolsaProperty[]) => {
+        if (!cancelled) { setAll(data); setLoading(false); }
+      })
+      .catch(() => {
+        if (!cancelled) { setError(true); setLoading(false); }
+      });
+    return () => { cancelled = true; };
+  }, []);
 
-  useEffect(() => { fetchProps(); }, [fetchProps]);
-
+  // Debounce solo para el campo de texto (150ms en cliente es suficiente)
   useEffect(() => {
-    const t = setTimeout(() => setQuery(search), 400);
+    const t = setTimeout(() => setDebouncedSearch(search), 150);
     return () => clearTimeout(t);
   }, [search]);
+
+  // Filtrado 100% cliente — instantáneo, sin fetch adicional
+  const properties = useMemo(() => {
+    const needle = debouncedSearch.trim().toLowerCase();
+    return all.filter(p => {
+      if (typeFilter && p.type !== typeFilter) return false;
+      if (opFilter) {
+        if (opFilter === "SALE" && p.operation !== "SALE" && p.operation !== "RENT_SALE") return false;
+        if (opFilter === "RENT" && p.operation !== "RENT" && p.operation !== "RENT_SALE") return false;
+      }
+      if (needle) {
+        const hay = [p.title, p.city, p.state, p.neighborhood]
+          .filter(Boolean).join(" ").toLowerCase();
+        if (!hay.includes(needle)) return false;
+      }
+      return true;
+    });
+  }, [all, typeFilter, opFilter, debouncedSearch]);
+
+  const hasFilters = typeFilter || opFilter || search;
+
+  const clearFilters = () => {
+    setSearch("");
+    setTypeFilter("");
+    setOpFilter("");
+  };
 
   return (
     <>
@@ -192,6 +218,11 @@ export default function PropiedadesPage() {
                 onChange={e => setSearch(e.target.value)}
                 className="prop-search"
               />
+              {search && (
+                <button className="prop-search-clear" onClick={() => setSearch("")} aria-label="Limpiar búsqueda">
+                  ✕
+                </button>
+              )}
             </div>
             <div className="prop-chip-row">
               {TYPES.map(t => (
@@ -229,18 +260,18 @@ export default function PropiedadesPage() {
             <div className="prop-state">
               <span style={{ fontSize: 40 }}>⚠️</span>
               <p style={{ color: "var(--muted)" }}>No se pudieron cargar. Intenta de nuevo.</p>
-              <button className="btn btn-ghost" onClick={fetchProps}>Reintentar</button>
+              <button className="btn btn-ghost" onClick={() => window.location.reload()}>Reintentar</button>
             </div>
           ) : properties.length === 0 ? (
             <div className="prop-state">
               <span style={{ fontSize: 40 }}>🏠</span>
               <p style={{ color: "var(--muted)" }}>
-                {(query || typeFilter || opFilter)
+                {hasFilters
                   ? "Sin resultados para esos filtros."
                   : "Aún no hay propiedades en bolsa."}
               </p>
-              {(query || typeFilter || opFilter) && (
-                <button className="btn btn-ghost" onClick={() => { setSearch(""); setTypeFilter(""); setOpFilter(""); }}>
+              {hasFilters && (
+                <button className="btn btn-ghost" onClick={clearFilters}>
                   Limpiar filtros
                 </button>
               )}
@@ -249,6 +280,9 @@ export default function PropiedadesPage() {
             <>
               <p className="prop-count">
                 {properties.length} propiedad{properties.length !== 1 ? "es" : ""} disponible{properties.length !== 1 ? "s" : ""}
+                {all.length !== properties.length && (
+                  <span style={{ marginLeft: 8, opacity: .5 }}>de {all.length}</span>
+                )}
               </p>
               <div className="prop-grid">
                 {properties.map(p => <PropertyCard key={p.id} p={p} />)}
@@ -272,10 +306,12 @@ export default function PropiedadesPage() {
         .bolsa-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.22); color: var(--accent); font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 100px; }
         .prop-filters { display: flex; flex-direction: column; gap: 14px; margin-top: 40px; padding: 20px 24px; background: var(--surface); border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); }
         .prop-search-wrap { position: relative; display: flex; align-items: center; }
-        .prop-search-wrap svg { position: absolute; left: 14px; color: var(--muted); pointer-events: none; }
-        .prop-search { width: 100%; padding: 10px 14px 10px 40px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 14px; outline: none; transition: border-color .2s; }
+        .prop-search-wrap > svg { position: absolute; left: 14px; color: var(--muted); pointer-events: none; }
+        .prop-search { width: 100%; padding: 10px 36px 10px 40px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 14px; outline: none; transition: border-color .2s; }
         .prop-search:focus { border-color: var(--accent); }
         .prop-search::placeholder { color: var(--muted); }
+        .prop-search-clear { position: absolute; right: 12px; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px; padding: 4px; line-height: 1; }
+        .prop-search-clear:hover { color: var(--text); }
         .prop-chip-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
         .prop-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
         .prop-count { font-size: 13px; color: var(--muted); margin-bottom: 24px; font-family: var(--font-mono), monospace; letter-spacing: .05em; }
