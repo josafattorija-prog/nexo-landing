@@ -23,9 +23,9 @@ export default function Nav() {
     { href: "/",            label: "Inicio" },
     { href: "/ia",          label: "IA" },
     { href: "/modulos",     label: "Módulos" },
-    { href: "/propiedades", label: "Propiedades" },
     { href: "/comparativa", label: "Comparativa" },
     { href: "/precios",     label: "Precios" },
+    { href: "/propiedades", label: "Propiedades" },
     { href: "/contacto",    label: "Contacto" },
   ];
 
@@ -36,14 +36,12 @@ export default function Nav() {
     <>
       <nav className="nav" style={{ borderBottomColor: scrolled ? "var(--border)" : "transparent" }}>
         <div className="shell nav-inner">
-          {/* Logo */}
           <Link href="/" className="nav-logo">
             <Image src="/nexo-logo.png" alt="Nexo AI" width={34} height={34} style={{ borderRadius: 8 }} />
             <span>Nexo<span style={{ color: "var(--accent)" }}>AI</span></span>
             <span className="dot" />
           </Link>
 
-          {/* Center links */}
           <div className="nav-links">
             {navLinks.map(({ href, label }) => (
               <Link
@@ -56,7 +54,6 @@ export default function Nav() {
             ))}
           </div>
 
-          {/* Right actions */}
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <button
               onClick={toggle}
@@ -80,7 +77,6 @@ export default function Nav() {
             <Link href="/contacto" className="btn btn-primary" style={{ height: 38, padding: "0 18px", fontSize: 13 }}>
               Pedir demo
             </Link>
-            {/* Hamburger */}
             <button
               className="nav-hamburger"
               aria-label="Abrir menú"
@@ -100,7 +96,6 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
       {menuOpen && (
         <div className="nav-mobile-menu">
           {navLinks.map(({ href, label }) => (
