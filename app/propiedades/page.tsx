@@ -191,15 +191,9 @@ export default function PropiedadesPage() {
       <section className="section tight" style={{ paddingBottom: 0 }}>
         <div className="shell">
           <div className="section-head center">
-            <div className="bolsa-pill">🤝 Bolsa Inmobiliaria</div>
-            <h1 style={{ marginTop: 16 }}>
-              Propiedades con<br />
-              <span style={{ color: "var(--accent)" }}>comisión compartida</span>
+            <h1 style={{ marginTop: 0 }}>
+              🤝 Bolsa Inmobiliaria
             </h1>
-            <p style={{ color: "var(--muted)", fontSize: 17, maxWidth: "52ch", margin: "16px auto 0" }}>
-              Propiedades de asesores NexoAI dispuestos a co-cerrar.
-              Suma propiedades de tu red y cierra más operaciones.
-            </p>
           </div>
           <div className="prop-filters">
             <div className="prop-search-wrap">
