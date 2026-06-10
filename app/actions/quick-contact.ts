@@ -25,6 +25,30 @@ export async function sendQuickContact(
     return { status: "error", message: "El correo electrónico no es válido." };
   }
 
+  // 1) Lead al CRM (inbox de admin). Server-to-server: sin CORS.
+  let crmOk = false;
+  try {
+    const res = await fetch("https://app.nexoai.mx/api/public/saas-lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: nombre,
+        email,
+        phone: whatsapp,
+        message: "Lead rápido desde la landing (formulario de inicio).",
+      }),
+    });
+
+    if (res.status === 429) {
+      return { status: "error", message: "Demasiados intentos, espera un momento e inténtalo de nuevo." };
+    }
+    crmOk = res.ok;
+  } catch {
+    crmOk = false;
+  }
+
+  // 2) Notificación por correo (paralela, best-effort).
+  let mailOk = false;
   try {
     await resend.emails.send({
       from:    "Nexo AI <noreply@nexoai.mx>",
@@ -40,8 +64,14 @@ export async function sendQuickContact(
         </table>
       `,
     });
-    return { status: "success", message: "¡Listo! Te contactamos en menos de 24 horas." };
+    mailOk = true;
   } catch {
-    return { status: "error", message: "Error al enviar. Escríbenos a contacto@nexoai.mx." };
+    mailOk = false;
   }
+
+  if (!crmOk && !mailOk) {
+    return { status: "error", message: "No se pudo enviar, escríbenos a contacto@nexoai.mx." };
+  }
+
+  return { status: "success", message: "¡Listo! Te contactamos en menos de 24 horas." };
 }
