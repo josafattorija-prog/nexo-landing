@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { Reveal } from "@/components/atoms";
 
 interface PropertyOrg {
   name: string;
@@ -191,9 +192,15 @@ export default function PropiedadesPage() {
       <section className="section tight" style={{ paddingBottom: 0 }}>
         <div className="shell">
           <div className="section-head center">
-            <h1 style={{ marginTop: 0 }}>
-              🤝 Bolsa Inmobiliaria
-            </h1>
+            <Reveal><span className="eyebrow">Bolsa · Co-brokering</span></Reveal>
+            <Reveal delay={80}>
+              <h2>Bolsa <span className="em">Inmobiliaria</span></h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="lead">
+                Propiedades compartidas por asesores NexoAI. Cierra más operaciones co-brokering.
+              </p>
+            </Reveal>
           </div>
           <div className="prop-filters">
             <div className="prop-search-wrap">

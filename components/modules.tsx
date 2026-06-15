@@ -68,37 +68,6 @@ export default function Modules() {
             <h3>App iOS + Android</h3>
             <p>Modo offline, push notifications instantáneas y captura de leads desde el celular del asesor.</p>
           </Reveal>
-
-          {/* Crédito — span 6 */}
-          <Reveal className="mod span6" delay={150}>
-            <span className="id">FIN · 007</span>
-            <div className="glyph"><Glyph name="cred" size={22} /></div>
-            <h3>Crédito Hipotecario</h3>
-            <p>Pre-calificación en menos de 3 minutos con BBVA, Banamex, Banorte y Santander. Tasas en vivo, sin papeleo.</p>
-            <div style={{ display: "flex", gap: 18, marginTop: 20, alignItems: "center" }}>
-              {["BBVA", "Banamex", "Banorte", "Santander"].map((b) => (
-                <div key={b} style={{ padding: "8px 14px", border: "1px solid var(--border-soft)", borderRadius: 10, background: "var(--bg-2)", fontWeight: 700, fontSize: 13 }}>{b}</div>
-              ))}
-            </div>
-          </Reveal>
-
-          {/* Contratos — span 6 */}
-          <Reveal className="mod span6" delay={200}>
-            <span className="id">LEG · 008</span>
-            <div className="glyph"><Glyph name="doc" size={22} /></div>
-            <h3>Contratos NOM-151</h3>
-            <p>Plantillas de arrendamiento y compraventa listas. Firma electrónica con validez legal en México y expediente digital.</p>
-            <div style={{ marginTop: 18, padding: 14, border: "1px dashed var(--border)", borderRadius: 12, fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-dim)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                <span>contrato_arrendamiento_mx.pdf</span>
-                <span style={{ color: "var(--accent)" }}>● firmado</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: 11 }}>
-                <span>NOM-151 · SHA-256 hash verificado</span>
-                <span>28 abr 2026</span>
-              </div>
-            </div>
-          </Reveal>
         </div>
       </div>
     </section>

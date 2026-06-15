@@ -131,12 +131,18 @@ export default function Contact() {
               </p>
               <a href="https://wa.me/5212213672612" className="wa-link" target="_blank" rel="noopener noreferrer">
                 <Glyph name="whats" size={18} />
-                +52 1 221 367 2612
+                +52 221 367 2612
               </a>
               <div className="wa-email">
                 <Glyph name="mail" size={16} />
                 <a href="mailto:contacto@nexoai.mx" style={{ color: "var(--text-dim)" }}>
                   contacto@nexoai.mx
+                </a>
+              </div>
+              <div className="wa-email">
+                <Glyph name="mail" size={16} />
+                <a href="mailto:soporte@nexoai.mx" style={{ color: "var(--text-dim)" }}>
+                  soporte@nexoai.mx
                 </a>
               </div>
 
