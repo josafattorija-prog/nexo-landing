@@ -6,7 +6,7 @@ export default function Modules() {
       <div className="shell">
         <div className="section-head">
           <Reveal><span className="eyebrow">Módulos · Pago por uso</span></Reveal>
-          <Reveal delay={80}><h2>Todo lo que un equipo<br />inmobiliario necesita.</h2></Reveal>
+          <Reveal delay={80}><h2>Todo lo que un <span className="em">equipo<br />inmobiliario</span> necesita.</h2></Reveal>
           <Reveal delay={160}>
             <p className="lead">
               Activa solo lo que usas. Cada agencia paga por los módulos que necesita
