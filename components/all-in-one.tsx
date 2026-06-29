@@ -5,10 +5,11 @@ import type { ComponentProps } from "react";
 type GlyphName = ComponentProps<typeof Glyph>["name"];
 
 const nodes: { x: number; y: number; name: string; desc: string; g: GlyphName }[] = [
-  { x: 50, y:  8, name: "Propiedades",     desc: "PROP·CORE",  g: "mkt"   },
-  { x: 90, y: 50, name: "Inbox Omnicanal", desc: "COM·ALL",    g: "inbox" },
-  { x: 50, y: 92, name: "Asistente IA",    desc: "AI·CLAUDE",  g: "ai"    },
-  { x: 12, y: 50, name: "CRM Pipeline",    desc: "CRM·KANBAN", g: "pipe"  },
+  { x: 50, y:  8, name: "Propiedades",         desc: "PROP·CORE",  g: "mkt"   },
+  { x: 90, y: 38, name: "Inbox Omnicanal",     desc: "COM·ALL",    g: "inbox" },
+  { x: 74, y: 86, name: "Asistente IA",        desc: "AI·CLAUDE",  g: "ai"    },
+  { x: 26, y: 86, name: "CRM Pipeline",        desc: "CRM·KANBAN", g: "pipe"  },
+  { x: 10, y: 38, name: "Análisis de Mercado", desc: "MKT·ZONA",   g: "mkt"   },
 ];
 
 export default function AllInOne() {
