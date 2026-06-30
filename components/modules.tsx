@@ -21,9 +21,9 @@ export default function Modules() {
             <span className="id">PROP · 002</span>
             <div className="glyph"><Glyph name="mkt" size={22} /></div>
             <h3>Propiedades Core</h3>
-            <p>Inventario ilimitado, fotos en alta, tours 360, ficha PDF auto-generada y publicación con un click en 30+ portales mexicanos.</p>
+            <p>Inventario ilimitado, fotos en alta, tours 360, ficha PDF auto-generada y publicación con un click en 10 portales mexicanos.</p>
             <div style={{ display: "flex", gap: 8, marginTop: 18, flexWrap: "wrap" }}>
-              {["Inmuebles24", "Lamudi", "Vivanuncios", "Propiedades.com", "+27"].map((p) => (
+              {["Inmuebles24", "Lamudi", "Vivanuncios", "Propiedades.com", "+6"].map((p) => (
                 <span key={p} className="chip">{p}</span>
               ))}
             </div>

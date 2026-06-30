@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo NexoAI — Animado</title>
+<style>
+  :root{
+    --emerald:#059669; --accent:#34d399; --bg:#030D08;
+    --panel:#08160f; --panel2:#0b1f16; --line:#13301f;
+    --muted:#9fb8ab; --soft:#cde8dc; --white:#ffffff;
+    --wa:#075E54; --wa-bubble:#1f2c34; --wa-out:#005c4b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;background:#000;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  /* 9:16 stage, scaled to fit */
+  #stage{position:relative;width:1080px;height:1920px;background:
+      radial-gradient(1200px 800px at 50% -10%, #0a2417 0%, var(--bg) 60%);
+      transform-origin:center;overflow:hidden;color:var(--white);}
+  .scene{position:absolute;inset:0;opacity:0;pointer-events:none;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:90px 70px;transition:opacity .5s ease;}
+  .scene.on{opacity:1;}
+
+  .kicker{color:var(--accent);font-weight:800;font-size:30px;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;}
+  .headline{font-size:74px;font-weight:800;line-height:1.05;text-align:center;letter-spacing:-1px;}
+  .headline .g{color:var(--accent);}
+  .sub{font-size:34px;color:var(--muted);text-align:center;margin-top:26px;max-width:820px;line-height:1.35;}
+
+  /* phone frame */
+  .phone{width:560px;height:1180px;background:#0a1611;border:14px solid #122a1d;border-radius:64px;
+      box-shadow:0 40px 120px rgba(0,0,0,.6), inset 0 0 0 2px #0e2417;position:relative;overflow:hidden;}
+  .phone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:190px;height:34px;background:#122a1d;border-radius:0 0 24px 24px;z-index:5;}
+  .appbar{height:120px;background:var(--panel);display:flex;align-items:flex-end;padding:0 34px 20px;gap:16px;border-bottom:1px solid var(--line);}
+  .logo-dot{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--emerald));display:flex;align-items:center;justify-content:center;font-weight:900;color:#02140c;font-size:26px;}
+  .appbar b{font-size:34px;}
+  .appbar .ai-tag{margin-left:auto;font-size:22px;color:var(--accent);border:1px solid var(--emerald);padding:6px 14px;border-radius:999px;}
+
+  /* generic card */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:28px;width:100%;}
+  .label{color:var(--muted);font-size:24px;margin-bottom:10px;}
+
+  /* SCENE 1: generate description */
+  .prop-photos{display:flex;gap:14px;margin:24px 0;}
+  .ph{flex:1;height:150px;border-radius:16px;background:linear-gradient(135deg,#13301f,#0c1f15);position:relative;overflow:hidden;}
+  .ph::after{content:"🏠";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:48px;opacity:.5;}
+  .meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;}
+  .chip{background:var(--panel2);border:1px solid var(--line);color:var(--soft);font-size:24px;padding:10px 18px;border-radius:12px;}
+  .gen-btn{margin:26px 0 18px;background:linear-gradient(135deg,var(--accent),var(--emerald));color:#02140c;font-weight:800;
+      font-size:30px;padding:22px;border-radius:18px;text-align:center;box-shadow:0 12px 40px rgba(5,150,105,.4);transition:transform .15s;}
+  .gen-btn.press{transform:scale(.96);}
+  .desc{font-size:26px;line-height:1.5;color:var(--soft);min-height:280px;}
+  .cursor{display:inline-block;width:3px;height:30px;background:var(--accent);margin-left:2px;vertical-align:middle;animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* SCENE 2: whatsapp + score */
+  .wa{height:100%;display:flex;flex-direction:column;background:#0b141a;}
+  .wa-top{background:var(--wa);height:120px;display:flex;align-items:flex-end;padding:0 28px 18px;gap:16px;}
+  .wa-top .av{width:54px;height:54px;border-radius:50%;background:#0e3b33;display:flex;align-items:center;justify-content:center;font-size:28px;}
+  .wa-top b{font-size:30px;}.wa-top .st{font-size:20px;color:#bfe;opacity:.8;}
+  .wa-body{flex:1;padding:30px 26px;display:flex;flex-direction:column;gap:20px;background:#0b141a;}
+  .bub{max-width:78%;padding:20px 24px;border-radius:20px;font-size:27px;line-height:1.35;opacity:0;transform:translateY(14px);transition:.4s;}
+  .bub.show{opacity:1;transform:none;}
+  .bub.in{background:var(--wa-bubble);align-self:flex-start;border-top-left-radius:6px;}
+  .bub.out{background:var(--wa-out);align-self:flex-end;border-top-right-radius:6px;}
+  .bub .t{display:block;font-size:18px;color:#9fd;opacity:.7;margin-top:8px;text-align:right;}
+  .typing{font-size:22px;color:var(--accent);align-self:flex-end;opacity:0;transition:.3s;}
+  .typing.show{opacity:1;}
+  /* lead toast */
+  .toast{position:absolute;left:40px;right:40px;bottom:60px;background:var(--panel);border:1px solid var(--emerald);
+      border-radius:22px;padding:26px 28px;display:flex;align-items:center;gap:22px;opacity:0;transform:translateY(30px);transition:.5s;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  .toast.show{opacity:1;transform:none;}
+  .toast .pa{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--emerald));display:flex;align-items:center;justify-content:center;font-size:30px;color:#02140c;font-weight:900;}
+  .toast .name{font-size:30px;font-weight:700;}
+  .toast .role{font-size:22px;color:var(--muted);}
+  .score{margin-left:auto;text-align:center;}
+  .score .num{font-size:48px;font-weight:900;color:var(--accent);line-height:1;}
+  .score .cap{font-size:18px;color:var(--muted);}
+
+  /* SCENE 3: kanban */
+  .kan{display:flex;gap:18px;width:100%;align-items:flex-start;}
+  .col{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;min-height:520px;}
+  .col h4{font-size:24px;color:var(--muted);margin-bottom:16px;text-align:center;font-weight:700;}
+  .col.win h4{color:var(--accent);}
+  .kcard{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px;font-size:22px;}
+  .kcard .kn{font-weight:700;}.kcard .kp{color:var(--muted);font-size:19px;margin-top:6px;}
+  /* the moving card */
+  #mover{position:absolute;width:300px;background:var(--panel2);border:2px solid var(--accent);border-radius:16px;padding:18px;
+      box-shadow:0 16px 50px rgba(5,150,105,.5);transition:left .9s cubic-bezier(.5,0,.2,1), top .9s cubic-bezier(.5,0,.2,1);z-index:10;}
+  #mover .kn{font-weight:800;font-size:23px;}#mover .kp{color:var(--accent);font-size:19px;margin-top:6px;}
+  .badge-score{display:inline-block;margin-top:8px;background:var(--emerald);color:#02140c;font-weight:800;font-size:18px;padding:3px 12px;border-radius:999px;}
+
+  /* CTA */
+  .cta-logo{display:flex;align-items:center;gap:22px;margin-bottom:30px;}
+  .cta-logo .d{width:90px;height:90px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--emerald));display:flex;align-items:center;justify-content:center;font-weight:900;color:#02140c;font-size:54px;}
+  .cta-logo b{font-size:84px;letter-spacing:-2px;}
+  .cta-pill{margin-top:40px;background:linear-gradient(135deg,var(--accent),var(--emerald));color:#02140c;font-weight:800;font-size:40px;padding:28px 56px;border-radius:999px;box-shadow:0 20px 60px rgba(5,150,105,.5);}
+
+  /* hook */
+  .hook-phone{font-size:120px;}
+  .clock{font-size:40px;color:var(--muted);margin-top:16px;letter-spacing:2px;}
+
+  /* confetti */
+  .confetti{position:absolute;width:16px;height:16px;opacity:0;border-radius:3px;}
+
+  /* progress + controls */
+  #bar{position:absolute;top:0;left:0;height:8px;background:var(--accent);width:0;z-index:50;}
+  #replay{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;background:var(--panel);color:var(--white);
+      border:1px solid var(--emerald);border-radius:999px;padding:12px 26px;font-size:16px;cursor:pointer;font-family:inherit;}
+  #replay:hover{background:var(--emerald);color:#02140c;}
+  .fadein{animation:fadeUp .6s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="stage">
+    <div id="bar"></div>
+
+    <!-- HOOK (placeholder; reemplazable por clip AI) -->
+    <section class="scene" id="s0">
+      <div class="hook-phone">📱</div>
+      <div class="clock">11:47 PM</div>
+      <div class="card" style="max-width:640px;margin-top:40px;">
+        <div class="bub in show" style="background:var(--wa-bubble);font-size:30px;padding:24px 28px;border-radius:20px;">
+          Hola, ¿sigue disponible la casa de Lomas? 👀
+          <span class="t">visto ✓✓</span>
+        </div>
+      </div>
+      <div class="sub" style="margin-top:50px;color:var(--soft);">El <span style="color:var(--accent);font-weight:800;">78%</span> de los leads compran con quien responde primero.</div>
+    </section>
+
+    <!-- BRAND -->
+    <section class="scene" id="sb">
+      <div class="cta-logo"><div class="d">N</div><b>NexoAI</b></div>
+      <div class="headline">Nunca <span class="g">duerme.</span></div>
+    </section>
+
+    <!-- SCENE 1: generate description -->
+    <section class="scene" id="s1">
+      <div class="kicker">Momento 1</div>
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="appbar"><div class="logo-dot">N</div><b>Nueva propiedad</b><span class="ai-tag">IA</span></div>
+        <div style="padding:30px;">
+          <div class="prop-photos"><div class="ph"></div><div class="ph"></div><div class="ph"></div></div>
+          <div class="meta-row"><span class="chip">3 recámaras</span><span class="chip">180 m²</span><span class="chip">Lomas</span></div>
+          <div class="meta-row"><span class="chip">$4,950,000 MXN</span></div>
+          <div class="gen-btn" id="genBtn">✨ Generar con IA</div>
+          <div class="label">Descripción</div>
+          <div class="desc" id="desc"></div>
+        </div>
+      </div>
+      <div class="sub">De 5 fotos a un anuncio que vende. <span style="color:var(--accent)">En segundos.</span></div>
+    </section>
+
+    <!-- SCENE 2: whatsapp auto reply + score -->
+    <section class="scene" id="s2">
+      <div class="kicker">Momento 2</div>
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="wa">
+          <div class="wa-top"><div class="av">👤</div><div><b>Carlos M.</b><div class="st">en línea</div></div></div>
+          <div class="wa-body">
+            <div class="bub in" id="b1">Hola, ¿sigue disponible la casa de Lomas?<span class="t">11:47 PM ✓✓</span></div>
+            <div class="typing" id="typing">NexoAI escribiendo…</div>
+            <div class="bub out" id="b2">¡Hola! Sí, la casa en Lomas sigue disponible. ¿Te gustaría agendar una visita esta semana? 📅<span class="t">11:47 PM ✓✓</span></div>
+          </div>
+        </div>
+        <div class="toast" id="toast">
+          <div class="pa">CM</div>
+          <div><div class="name">Carlos M.</div><div class="role">Nuevo lead · WhatsApp</div></div>
+          <div class="score"><div class="num" id="scoreNum">0</div><div class="cap">SCORE IA</div></div>
+        </div>
+      </div>
+      <div class="sub">Responde en 1 segundo, 24/7. <span style="color:var(--accent)">Y los califica solo.</span></div>
+    </section>
+
+    <!-- SCENE 3: kanban -->
+    <section class="scene" id="s3">
+      <div class="kicker">Momento 3</div>
+      <div style="width:100%;position:relative;">
+        <div class="kan" id="kan">
+          <div class="col" id="c0"><h4>Nuevo</h4></div>
+          <div class="col" id="c1"><h4>Contactado</h4></div>
+          <div class="col" id="c2"><h4>Visita</h4></div>
+          <div class="col win" id="c3"><h4>🏆 Ganado</h4></div>
+        </div>
+        <div id="mover"><div class="kn">Carlos M.</div><div class="kp">Casa Lomas · $4.95M</div><span class="badge-score">92</span></div>
+      </div>
+      <div class="sub" style="margin-top:60px;">Tu pipeline avanza solo. <span style="color:var(--accent)">Tú solo cierras.</span></div>
+    </section>
+
+    <!-- CTA -->
+    <section class="scene" id="s4">
+      <div class="cta-logo"><div class="d">N</div><b>NexoAI</b></div>
+      <div class="sub" style="font-size:38px;color:var(--soft);max-width:760px;">El CRM con Inteligencia Artificial para inmobiliarias en México.</div>
+      <div class="cta-pill">Pruébalo gratis → nexoai.mx</div>
+    </section>
+
+  </div>
+</div>
+<button id="replay">↻ Repetir</button>
+
+<script>
+// ---- scale stage to fit ----
+function fit(){
+  const s=document.getElementById('stage');
+  const k=Math.min(window.innerWidth/1080, window.innerHeight/1920);
+  s.style.transform='scale('+k+')';
+}
+window.addEventListener('resize',fit); fit();
+
+const $=id=>document.getElementById(id);
+let timers=[];
+const after=(ms,fn)=>timers.push(setTimeout(fn,ms));
+const show=id=>{document.querySelectorAll('.scene').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');};
+
+const DESC="Hermosa casa en Lomas con acabados de lujo, 3 recámaras, "+
+"amplios espacios iluminados y jardín privado. Ubicación premium cerca "+
+"de escuelas y centros comerciales. ¡Tu próximo hogar te espera!";
+
+function typeDesc(){
+  const el=$('desc'); el.innerHTML='';
+  let i=0; const cur='<span class="cursor"></span>';
+  (function step(){
+    if(i<=DESC.length){ el.innerHTML=DESC.slice(0,i)+cur; i+=2; after(28,step); }
+    else el.innerHTML=DESC;
+  })();
+}
+function countScore(){
+  const el=$('scoreNum'); let n=0;
+  (function step(){ if(n<=92){el.textContent=n;n+=4;after(30,step);} else el.textContent=92; })();
+}
+function moveCard(){
+  const m=$('mover'); const kan=$('kan');
+  const place=(col,top)=>{const c=$(col);m.style.left=(c.offsetLeft+18)+'px';m.style.top=(c.offsetTop+70+top)+'px';};
+  // start at col0
+  m.style.opacity=1; place('c0',0);
+  after(700,()=>place('c1',0));
+  after(1700,()=>place('c2',0));
+  after(2700,()=>{place('c3',0); burst();});
+}
+function burst(){
+  const stage=$('stage'); const cols=['#34d399','#059669','#cde8dc','#fff'];
+  const cx=$('c3').offsetLeft+$('c3').offsetWidth/2;
+  const cy=$('s3').offsetTop+ $('c3').offsetTop+120;
+  for(let i=0;i<40;i++){
+    const c=document.createElement('div');c.className='confetti';
+    c.style.background=cols[i%4];c.style.left=cx+'px';c.style.top=cy+'px';
+    stage.appendChild(c);
+    const ang=Math.random()*Math.PI*2, dist=200+Math.random()*340;
+    const dx=Math.cos(ang)*dist, dy=Math.sin(ang)*dist - 120;
+    c.animate([
+      {transform:'translate(0,0) rotate(0)',opacity:1},
+      {transform:`translate(${dx}px,${dy}px) rotate(${Math.random()*720}deg)`,opacity:0}
+    ],{duration:1400,easing:'cubic-bezier(.2,.6,.2,1)'});
+    after(1500,()=>c.remove());
+  }
+}
+
+function run(){
+  timers.forEach(clearTimeout); timers=[];
+  // reset
+  ['b1','b2'].forEach(id=>$(id).classList.remove('show'));
+  $('typing').classList.remove('show'); $('toast').classList.remove('show');
+  $('desc').innerHTML=''; $('scoreNum').textContent='0';
+  $('genBtn').classList.remove('press'); $('mover').style.opacity=0;
+  const bar=$('bar'); bar.style.transition='none'; bar.style.width='0';
+  requestAnimationFrame(()=>{bar.style.transition='width 45s linear';bar.style.width='100%';});
+
+  // 0:00 hook
+  show('s0');
+  // 0:05 brand
+  after(5000,()=>show('sb'));
+  // 0:08 scene1
+  after(8000,()=>{ show('s1');
+    after(900,()=>$('genBtn').classList.add('press'));
+    after(1300,()=>{$('genBtn').classList.remove('press');typeDesc();});
+  });
+  // 0:19 scene2
+  after(19000,()=>{ show('s2');
+    after(500,()=>$('b1').classList.add('show'));
+    after(1500,()=>$('typing').classList.add('show'));
+    after(3200,()=>{$('typing').classList.remove('show');$('b2').classList.add('show');});
+    after(4200,()=>{$('toast').classList.add('show');countScore();});
+  });
+  // 0:31 scene3
+  after(31000,()=>{ show('s3'); after(400,moveCard); });
+  // 0:40 cta
+  after(40000,()=>show('s4'));
+  // loop
+  after(45000,run);
+}
+$('replay').onclick=run;
+run();
+</script>
+</body>
+</html>
