@@ -37,7 +37,7 @@ function AIWriter() {
       <div style={{ display: "flex", gap: 8, marginTop: "auto", flexWrap: "wrap" }}>
         <span className="chip">SEO score 96</span>
         <span className="chip">Lectura 14s</span>
-        <span className="chip primary">Publicar en 10 portales</span>
+        <span className="chip primary">Publicar en 30 portales</span>
       </div>
     </>
   );

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Nexo AI",
   },
   description:
-    "El primer CRM inmobiliario All-in-One de México. Publica en 10 portales, automatiza el ciclo de venta y cierra más operaciones con IA entrenada en bienes raíces.",
+    "El primer CRM inmobiliario All-in-One de México. Publica en 30+ portales, automatiza el ciclo de venta y cierra más operaciones con IA entrenada en bienes raíces.",
   openGraph: {
     title: "Nexo AI — La IA del sector inmobiliario",
     description:

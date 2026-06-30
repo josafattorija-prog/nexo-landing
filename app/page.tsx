@@ -1,5 +1,4 @@
 import Hero from "@/components/hero";
-import DemoReel from "@/components/demo-reel";
 import AllInOne from "@/components/all-in-one";
 import Inbox from "@/components/inbox";
 import AIFeatures from "@/components/ai-features";
@@ -11,7 +10,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <DemoReel />
       <AllInOne />
       <Inbox />
       <AIFeatures preview />
