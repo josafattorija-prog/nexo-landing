@@ -1,11 +1,6 @@
 "use client";
 
-import { Reveal, Counter, Glyph } from "./atoms";
-
-const portales = [
-  "Inmuebles24", "Propiedades.com", "Lamudi", "Vivanuncios",
-  "Mercado Libre", "Casas y Terrenos", "Trovit", "Mitula", "Point2", "EasyAvisos",
-];
+import { Reveal, Glyph } from "./atoms";
 
 export default function Hero() {
   return (
@@ -22,15 +17,15 @@ export default function Hero() {
 
           <Reveal delay={120}>
             <h1>
-              La <span className="shimmer">IA del sector</span>
-              <br />inmobiliario.
+              La IA que <span className="shimmer">vende propiedades</span>
+              <br />mientras tú duermes.
             </h1>
           </Reveal>
 
           <Reveal delay={220}>
             <p className="lead">
               Nexo AI es el primer CRM inmobiliario All-in-One de México: publica en
-              <strong style={{ color: "var(--text)" }}> 30+ portales</strong>, automatiza el
+              <strong style={{ color: "var(--text)" }}> 10 portales</strong>, automatiza el
               ciclo de venta y cierra más operaciones con una IA entrenada en bienes raíces.
             </p>
           </Reveal>
@@ -38,10 +33,10 @@ export default function Hero() {
           <Reveal delay={320}>
             <div className="hero-actions">
               <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary">
-                <Glyph name="spark" size={16} /> Probar gratis 30 días
+                <Glyph name="spark" size={16} /> Crear mi inmobiliaria gratis
               </a>
-              <a href="#producto" className="btn btn-ghost">
-                <Glyph name="play" size={14} /> Ver demo · 90 seg
+              <a href="#demo" className="btn btn-ghost">
+                <Glyph name="play" size={14} /> Ver demo
               </a>
               <span className="mono" style={{ color: "var(--muted)", fontSize: 12, marginLeft: 6 }}>
                 sin tarjeta · onboarding en 24h
@@ -52,16 +47,16 @@ export default function Hero() {
           <Reveal delay={420}>
             <div className="hero-stats">
               <div>
-                <div className="num">+<Counter to={28} suffix="%" /></div>
-                <div className="lbl">Más leads / 90 días</div>
+                <div className="num">24/7</div>
+                <div className="lbl">Responde sin descanso</div>
               </div>
               <div>
-                <div className="num"><Counter to={30} />+</div>
+                <div className="num">IA</div>
+                <div className="lbl">Califica cada lead</div>
+              </div>
+              <div>
+                <div className="num">10</div>
                 <div className="lbl">Portales conectados</div>
-              </div>
-              <div>
-                <div className="num"><Counter to={9} />×</div>
-                <div className="lbl">Más rápido cerrar</div>
               </div>
             </div>
           </Reveal>
@@ -95,27 +90,6 @@ export default function Hero() {
             </div>
           </div>
         </Reveal>
-      </div>
-
-      {/* Portales marquee */}
-      <div className="shell" style={{ marginTop: 120 }}>
-        <div className="eyebrow" style={{ textAlign: "center", marginBottom: 20 }}>
-          Publicación nativa en los portales líderes de México
-        </div>
-        <div className="marquee-wrap">
-          <div className="marquee">
-            {[0, 1].map((k) => (
-              <span key={k} style={{ display: "contents" }}>
-                {portales.map((p, i) => (
-                  <span className="item" key={`${k}-${i}`}>
-                    <span className="pip" />
-                    {p}
-                  </span>
-                ))}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
