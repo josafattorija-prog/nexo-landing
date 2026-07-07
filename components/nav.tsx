@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "./theme-provider";
@@ -37,8 +36,8 @@ export default function Nav() {
       <nav className="nav" style={{ borderBottomColor: scrolled ? "var(--border)" : "transparent" }}>
         <div className="shell nav-inner">
           <Link href="/" className="nav-logo">
-            <Image src="/nexo-logo-light.png" alt="Nexo AI" width={34} height={34} className="logo-light" />
-            <Image src="/nexo-logo-dark.png" alt="Nexo AI" width={34} height={34} className="logo-dark" />
+            <img src="/nexo-logo-light.svg" alt="Nexo AI" width={34} height={34} className="logo-light" />
+            <img src="/nexo-logo-dark.svg" alt="Nexo AI" width={34} height={34} className="logo-dark" />
             <span>Nexo<span style={{ color: "var(--accent)" }}>AI</span></span>
             <span className="dot" />
           </Link>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- antenna -->
+  <rect x="249" y="70" width="14" height="86" rx="7" fill="#14BE87"/>
+  <circle cx="256" cy="48" r="25" fill="#14BE87"/>
+  <circle cx="247" cy="40" r="6.5" fill="#FFFFFF"/>
+  <!-- tile -->
+  <rect x="62" y="150" width="388" height="344" rx="52" fill="#052A1C" stroke="#14BE87" stroke-width="15"/>
+  <!-- AI label -->
+  <text x="108" y="222" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="48" fill="#F5F7F5">AI</text>
+  <!-- N -->
+  <g fill="#F5F7F5">
+    <rect x="170" y="238" width="46" height="162"/>
+    <rect x="296" y="238" width="46" height="162"/>
+    <polygon points="170,238 216,238 342,400 296,400"/>
+  </g>
+  <!-- eyes -->
+  <g>
+    <circle cx="202" cy="300" r="30" fill="#04220F"/>
+    <circle cx="202" cy="300" r="22" fill="#14BE87"/>
+    <circle cx="195" cy="293" r="7" fill="#FFFFFF"/>
+    <circle cx="312" cy="300" r="30" fill="#04220F"/>
+    <circle cx="312" cy="300" r="22" fill="#14BE87"/>
+    <circle cx="305" cy="293" r="7" fill="#FFFFFF"/>
+  </g>
+  <!-- rule -->
+  <line x1="118" y1="428" x2="394" y2="428" stroke="#14BE87" stroke-width="5" stroke-linecap="round"/>
+  <!-- NEXO -->
+  <text x="256" y="474" text-anchor="middle" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="42" letter-spacing="7" fill="#F5F7F5">NEXO</text>
+</svg>

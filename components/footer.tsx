@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Glyph } from "./atoms";
 import type { ComponentProps } from "react";
@@ -22,8 +21,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="foot-col">
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-              <Image src="/nexo-logo-light.png" alt="Nexo AI" width={42} height={42} className="logo-light" />
-              <Image src="/nexo-logo-dark.png" alt="Nexo AI" width={42} height={42} className="logo-dark" />
+              <img src="/nexo-logo-light.svg" alt="Nexo AI" width={42} height={42} className="logo-light" />
+              <img src="/nexo-logo-dark.svg" alt="Nexo AI" width={42} height={42} className="logo-dark" />
               <div>
                 <div style={{ fontWeight: 800, fontSize: 18, color: "var(--text)" }}>
                   Nexo<span style={{ color: "var(--accent)" }}>AI</span>
