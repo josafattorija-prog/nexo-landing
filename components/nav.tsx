@@ -37,7 +37,8 @@ export default function Nav() {
       <nav className="nav" style={{ borderBottomColor: scrolled ? "var(--border)" : "transparent" }}>
         <div className="shell nav-inner">
           <Link href="/" className="nav-logo">
-            <Image src="/nexo-logo.png" alt="Nexo AI" width={34} height={34} style={{ borderRadius: 8 }} />
+            <Image src="/nexo-logo-light.png" alt="Nexo AI" width={34} height={34} className="logo-light" />
+            <Image src="/nexo-logo-dark.png" alt="Nexo AI" width={34} height={34} className="logo-dark" />
             <span>Nexo<span style={{ color: "var(--accent)" }}>AI</span></span>
             <span className="dot" />
           </Link>

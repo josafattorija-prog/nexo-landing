@@ -266,7 +266,10 @@ p { margin: 0; line-height: 1.55; }
 }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .nav-logo { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -.01em; }
-.nav-logo img { width: 34px; height: 34px; border-radius: 8px; }
+.nav-logo img { width: 34px; height: 34px; }
+.logo-dark { display: none; }
+[data-theme="dark"] .logo-light { display: none; }
+[data-theme="dark"] .logo-dark { display: inline-block; }
 .nav-logo .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { opacity: .6 } 50% { opacity: 1 } }
 .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--text-dim); }

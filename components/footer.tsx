@@ -22,7 +22,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="foot-col">
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-              <Image src="/nexo-logo.png" alt="Nexo AI" width={42} height={42} style={{ borderRadius: 10 }} />
+              <Image src="/nexo-logo-light.png" alt="Nexo AI" width={42} height={42} className="logo-light" />
+              <Image src="/nexo-logo-dark.png" alt="Nexo AI" width={42} height={42} className="logo-dark" />
               <div>
                 <div style={{ fontWeight: 800, fontSize: 18, color: "var(--text)" }}>
                   Nexo<span style={{ color: "var(--accent)" }}>AI</span>
