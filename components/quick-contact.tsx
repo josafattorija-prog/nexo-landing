@@ -93,6 +93,13 @@ export default function QuickContact() {
                     Ver formulario completo →
                   </Link>
                 </p>
+                <p style={{ marginTop: 8, fontSize: 12, color: "var(--text-dim)", textAlign: "center", lineHeight: 1.5 }}>
+                  Al enviar aceptas nuestro{" "}
+                  <Link href="/aviso-de-privacidad" style={{ color: "var(--accent)", textDecoration: "underline", textUnderlineOffset: 2 }}>
+                    Aviso de Privacidad
+                  </Link>
+                  .
+                </p>
               </form>
             )}
           </Reveal>

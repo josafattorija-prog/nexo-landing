@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { Glyph } from "./atoms";
 import type { ComponentProps } from "react";
+import { BUSINESS, fullAddress } from "@/lib/business";
 
 type GlyphName = ComponentProps<typeof Glyph>["name"];
 
+// Solo canales reales. No agregar redes sin perfil: un enlace muerto resta
+// credibilidad y es una de las señales que Meta revisa al verificar el negocio.
 const socials: { name: GlyphName; href: string }[] = [
-  { name: "ig",    href: "#" },
-  { name: "fb",    href: "#" },
-  { name: "whats", href: "https://wa.me/5212213672612" },
-  { name: "mail",  href: "mailto:contacto@nexoai.mx" },
+  { name: "whats", href: BUSINESS.whatsappHref },
+  { name: "mail",  href: `mailto:${BUSINESS.email}` },
 ];
 
 export default function Footer() {
@@ -66,11 +67,9 @@ export default function Footer() {
           <div className="foot-col">
             <h4>Recursos</h4>
             <ul>
-              <li><a href="#">Documentación</a></li>
               <li><Link href="/comparativa">Comparativa 2026</Link></li>
-              <li><a href="#">Casos de éxito</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">API pública</a></li>
+              <li><Link href="/modulos">Módulos</Link></li>
+              <li><Link href="/propiedades">Bolsa inmobiliaria</Link></li>
             </ul>
           </div>
 
@@ -78,16 +77,26 @@ export default function Footer() {
           <div className="foot-col">
             <h4>Empresa</h4>
             <ul>
-              <li><a href="#">Sobre nosotros</a></li>
-              <li><a href="mailto:contacto@nexoai.mx?subject=Carreras">Carreras</a></li>
-              <li><a href="mailto:contacto@nexoai.mx">contacto@nexoai.mx</a></li>
-              <li><a href="mailto:soporte@nexoai.mx">soporte@nexoai.mx</a></li>
-              <li><a href="https://wa.me/5212213672612">+52 221 367 2612</a></li>
+              <li><Link href="/sobre-nosotros">Sobre nosotros</Link></li>
               <li><Link href="/contacto">Contacto y demo</Link></li>
-              <li><a href="#">Términos</a></li>
-              <li><a href="#">Privacidad</a></li>
+              <li><a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
+              <li><a href={`mailto:${BUSINESS.supportEmail}`}>{BUSINESS.supportEmail}</a></li>
+              <li><a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a></li>
+              <li><a href={BUSINESS.whatsappHref}>WhatsApp</a></li>
+              <li><Link href="/terminos">Términos y condiciones</Link></li>
+              <li><Link href="/aviso-de-privacidad">Aviso de privacidad</Link></li>
             </ul>
           </div>
+        </div>
+
+        {/* ── Datos fiscales del responsable ──────────────────────────────────
+            Requisito de acreditación: Meta verifica que el sitio corrobore la
+            razón social, el domicilio y el teléfono declarados en Business Info.
+            Debe quedar como texto plano seleccionable. No convertir en imagen. */}
+        <div className="foot-legal">
+          <span>{BUSINESS.legalName} · RFC {BUSINESS.rfc}</span>
+          <span>{fullAddress()}</span>
+          <span>Tel. {BUSINESS.phone} · {BUSINESS.email}</span>
         </div>
 
         <div className="foot-bottom">

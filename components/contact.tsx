@@ -112,7 +112,11 @@ export default function Contact() {
                   )}
                 </button>
                 <p style={{ marginTop: 10, fontSize: 12, color: "var(--text-dim)", lineHeight: 1.5 }}>
-                  Al enviar aceptas nuestra política de privacidad. No spam, nunca.
+                  Al enviar aceptas nuestro{" "}
+                  <a href="/aviso-de-privacidad" style={{ color: "var(--accent)", textDecoration: "underline", textUnderlineOffset: 2 }}>
+                    Aviso de Privacidad
+                  </a>
+                  . No spam, nunca.
                 </p>
               </div>
             </form>
