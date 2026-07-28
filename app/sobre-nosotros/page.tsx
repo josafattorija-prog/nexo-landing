@@ -71,6 +71,7 @@ export default function SobreNosotrosPage() {
             <li><strong>WhatsApp:</strong> <a href={BUSINESS.whatsappHref}>{BUSINESS.whatsapp}</a></li>
             <li><strong>Ventas:</strong> <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
             <li><strong>Soporte:</strong> <a href={`mailto:${BUSINESS.supportEmail}`}>{BUSINESS.supportEmail}</a></li>
+            <li><strong>Titular:</strong> <a href={`mailto:${BUSINESS.ownerEmail}`}>{BUSINESS.ownerEmail}</a></li>
           </ul>
           <p style={{ marginTop: 24 }}>
             ¿Quiere ver la plataforma funcionando?{" "}

@@ -41,6 +41,14 @@ export const BUSINESS = {
   email: 'contacto@nexoai.mx',
   supportEmail: 'soporte@nexoai.mx',
 
+  /**
+   * Correo del titular verificado ante Meta durante el proceso de verificación
+   * del negocio. Se publica en /sobre-nosotros para que el revisor encuentre en
+   * el sitio exactamente la misma dirección que confirmó. Debe estar en el
+   * dominio del sitio (nexoai.mx) — no cambiar sin actualizarlo también en Meta.
+   */
+  ownerEmail: 'josafat.torija@nexoai.mx',
+
   website: 'https://nexoai.mx',
 } as const
 
