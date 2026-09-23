@@ -151,14 +151,13 @@ export default function Contact() {
               </div>
 
               <div style={{ marginTop: 8, paddingTop: 16, borderTop: "1px solid var(--border-soft)" }}>
-                <div className="mono" style={{ fontSize: 11, color: "var(--muted)", letterSpacing: ".12em", marginBottom: 10 }}>
-                  INCLUYE EN TU DEMO
+                <div className="mono" style={{ fontSize: 11, color: "var(--muted)", letterSpacing: ".12em", marginBottom: 10, textTransform: "uppercase" }}>
+                  Tu demo incluye
                 </div>
                 {[
-                  "Setup inicial de tu inventario",
-                  "Integración con tus portales actuales",
-                  "Migración desde EasyBroker / Tokko",
-                  "Onboarding para tu equipo",
+                  "Ayuda para personalizar tu inmobiliaria",
+                  "Creación de tu portal premium",
+                  "Configuración de canales para tu buzón (WhatsApp, Instagram, Facebook y Email)",
                 ].map((item) => (
                   <div key={item} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: 8, fontSize: 13, color: "var(--text-dim)" }}>
                     <Glyph name="check" size={14} />

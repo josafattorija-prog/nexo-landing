@@ -3,6 +3,7 @@ import Link from "next/link";
 import Modules from "@/components/modules";
 import CTABand from "@/components/cta";
 import { Reveal, Glyph } from "@/components/atoms";
+import { CTA_LABEL } from "@/lib/cta";
 
 export const metadata: Metadata = {
   title: "Módulos CRM All-in-One",
@@ -52,7 +53,7 @@ export default function ModulosPage() {
           <Reveal>
             <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary" style={{ fontSize: 16, height: 52, padding: "0 32px" }}>
               <Glyph name="spark" size={18} />
-              Activa tus módulos — 30 días gratis
+              {CTA_LABEL}
             </a>
           </Reveal>
           <Reveal delay={80}>

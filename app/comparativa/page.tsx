@@ -3,6 +3,7 @@ import Link from "next/link";
 import Comparativa from "@/components/comparativa";
 import CTABand from "@/components/cta";
 import { Reveal, Glyph } from "@/components/atoms";
+import { CTA_LABEL } from "@/lib/cta";
 
 export const metadata: Metadata = {
   title: "Comparativa 2026",
@@ -25,7 +26,7 @@ export default function ComparativaPage() {
           <Reveal>
             <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary" style={{ fontSize: 16, height: 52, padding: "0 32px" }}>
               <Glyph name="spark" size={18} />
-              Migra desde tu CRM actual en 24 horas
+              {CTA_LABEL}
             </a>
           </Reveal>
           <Reveal delay={80}>

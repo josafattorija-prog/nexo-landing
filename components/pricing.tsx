@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Reveal, Glyph } from "./atoms";
+import { CTA_LABEL } from "@/lib/cta";
 
 type Interval = "monthly" | "quarterly" | "semiannual" | "annual";
 
@@ -44,13 +45,12 @@ const tiers: Tier[] = [
       annual:     { monthly: 0, total: 0 },
     },
     href: "https://app.nexoai.mx/sign-up?plan=BASE",
-    cta: "Empezar gratis",
+    cta: CTA_LABEL,
     ctaStyle: "ghost",
     popular: false,
     feats: [
       "Hasta 10 propiedades",
       "1 usuario",
-      "10 créditos IA / mes",
       "Inbox Omnicanal",
       "Ficha PDF de propiedad",
       "Publicación en portales (básico)",
@@ -68,7 +68,7 @@ const tiers: Tier[] = [
       annual:     { monthly: 420, total: 5040 },
     },
     href: "https://app.nexoai.mx/sign-up?plan=STARTER",
-    cta: "Iniciar prueba gratis 30 días",
+    cta: CTA_LABEL,
     ctaStyle: "ghost",
     popular: false,
     feats: [
@@ -95,7 +95,7 @@ const tiers: Tier[] = [
       annual:     { monthly: 560, total: 6720 },
     },
     href: "https://app.nexoai.mx/sign-up?plan=PRO",
-    cta: "Iniciar prueba gratis 30 días",
+    cta: CTA_LABEL,
     ctaStyle: "ghost",
     popular: true,
     feats: [

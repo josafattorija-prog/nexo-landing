@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Reveal, Glyph } from "./atoms";
+import ChannelIcons from "./channel-icons";
 import type { ComponentProps } from "react";
 
 type GlyphName = ComponentProps<typeof Glyph>["name"];
@@ -24,6 +25,9 @@ export default function Inbox() {
           <Reveal><span className="eyebrow">Inbox · COM·001</span></Reveal>
           <Reveal delay={80}>
             <h2>Un solo buzón.<br /><span className="em">Cuatro canales.</span> Cero leads perdidos.</h2>
+          </Reveal>
+          <Reveal delay={120} className="w-full">
+            <ChannelIcons />
           </Reveal>
           <Reveal delay={160}>
             <p className="lead">

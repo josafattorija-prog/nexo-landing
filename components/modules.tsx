@@ -64,9 +64,12 @@ export default function Modules() {
           {/* App móvil — span 4 */}
           <Reveal className="mod span4" delay={250}>
             <span className="id">MOB · 006</span>
-            <div className="glyph"><Glyph name="mobile" size={22} /></div>
+            <div className="glyph opacity-80"><Glyph name="mobile" size={22} /></div>
             <h3>App iOS + Android</h3>
             <p>Modo offline, push notifications instantáneas y captura de leads desde el celular del asesor.</p>
+            <span className="mt-4 inline-block rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#34d399]">
+              Próximamente
+            </span>
           </Reveal>
         </div>
       </div>

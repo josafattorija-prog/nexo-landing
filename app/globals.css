@@ -289,7 +289,8 @@ p { margin: 0; line-height: 1.55; }
 @keyframes pulse { 0%,100% { opacity: .6 } 50% { opacity: 1 } }
 .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--text-dim); }
 .nav-links a:hover { color: var(--text); transition: color .15s ease; }
-@media (max-width: 840px) { .nav-links { display: none; } }
+@media (max-width: 980px) { .nav-links { display: none; } }
+@media (min-width: 981px) and (max-width: 1180px) { .nav-links { gap: 18px; font-size: 13px; } }
 
 /* ===== Hero ===== */
 .hero { position: relative; min-height: 100vh; padding: 140px 0 80px; display: flex; align-items: center; overflow: hidden; }
@@ -654,8 +655,8 @@ footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; color: 
   color: var(--text-dim); background: var(--btn-ghost-bg); transition: border-color .15s ease;
 }
 .nav-hamburger:hover { border-color: var(--accent); }
+@media (max-width: 980px) { .nav-hamburger { display: flex; } }
 @media (max-width: 840px) {
-  .nav-hamburger { display: flex; }
   .nav-signin { display: none; }
 }
 .nav-mobile-menu {
@@ -838,3 +839,10 @@ footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; color: 
   color: var(--accent);
 }
 @media (max-width: 768px) { .qc-wrap { grid-template-columns: 1fr; gap: 36px; } }
+
+/* Tarjetas de canales (Inbox) */
+.channel-card { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); }
+[data-theme="light"] .channel-card { background: var(--surface); border-color: var(--border); }
+.nav-cta { white-space: nowrap; }
+/* En móvil el CTA vive en el menú hamburguesa (y en el hero) para no encimar el logo */
+@media (max-width: 480px) { .nav-cta { display: none !important; } }

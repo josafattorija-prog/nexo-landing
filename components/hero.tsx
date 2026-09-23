@@ -1,6 +1,7 @@
 "use client";
 
 import { Reveal, Glyph } from "./atoms";
+import { CTA_LABEL } from "@/lib/cta";
 
 export default function Hero() {
   return (
@@ -33,7 +34,7 @@ export default function Hero() {
           <Reveal delay={320}>
             <div className="hero-actions">
               <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary">
-                <Glyph name="spark" size={16} /> Crear mi inmobiliaria gratis
+                <Glyph name="spark" size={16} /> {CTA_LABEL}
               </a>
               <a href="#demo" className="btn btn-ghost">
                 <Glyph name="play" size={14} /> Ver demo
@@ -55,8 +56,8 @@ export default function Hero() {
                 <div className="lbl">Califica cada lead</div>
               </div>
               <div>
-                <div className="num">10</div>
-                <div className="lbl">Portales conectados</div>
+                <div className="num">4</div>
+                <div className="lbl">Canales conectados</div>
               </div>
             </div>
           </Reveal>
@@ -86,7 +87,7 @@ export default function Hero() {
               <div className="tag t2"><span className="d" /> Match IA · 94%</div>
               <div className="tag t3"><span className="d" /> Inmuebles24 · publicado</div>
               <div className="tag t4"><span className="d" /> Crédito · pre-aprobado</div>
-              <div className="tag t5"><span className="d" /> Contrato · firmado</div>
+              <div className="tag t5"><span className="d" /> Redes sociales · conectadas</div>
             </div>
           </div>
         </Reveal>

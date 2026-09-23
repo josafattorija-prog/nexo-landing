@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "./theme-provider";
+import { CTA_LABEL } from "@/lib/cta";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -74,9 +75,9 @@ export default function Nav() {
             <a href="https://app.nexoai.mx/sign-in" className="btn btn-ghost nav-signin" style={{ height: 38, padding: "0 16px", fontSize: 13 }}>
               Iniciar sesión
             </a>
-            <Link href="/contacto" className="btn btn-primary" style={{ height: 38, padding: "0 18px", fontSize: 13 }}>
-              Pedir demo
-            </Link>
+            <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary nav-cta" style={{ height: 38, padding: "0 18px", fontSize: 13 }}>
+              {CTA_LABEL}
+            </a>
             <button
               className="nav-hamburger"
               aria-label="Abrir menú"
@@ -112,9 +113,9 @@ export default function Nav() {
             <a href="https://app.nexoai.mx/sign-in" className="btn btn-ghost" style={{ justifyContent: "center" }}>
               Iniciar sesión
             </a>
-            <Link href="/contacto" className="btn btn-primary" style={{ justifyContent: "center" }} onClick={() => setMenuOpen(false)}>
-              Pedir demo
-            </Link>
+            <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary" style={{ justifyContent: "center" }} onClick={() => setMenuOpen(false)}>
+              {CTA_LABEL}
+            </a>
           </div>
         </div>
       )}

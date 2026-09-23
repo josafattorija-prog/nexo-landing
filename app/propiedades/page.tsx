@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Reveal } from "@/components/atoms";
+import { CTA_LABEL } from "@/lib/cta";
 
 interface PropertyOrg {
   name: string;
@@ -275,7 +276,7 @@ export default function PropiedadesPage() {
                 ¿Quieres publicar tus propiedades en la bolsa?
               </p>
               <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary" style={{ height: 48, padding: "0 28px" }}>
-                Crear cuenta gratis →
+                {CTA_LABEL}
               </a>
             </div>
           )}
