@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Reveal, Glyph } from "./atoms";
 import type { ComponentProps } from "react";
+import { Brand } from "@/components/brand";
 
 type GlyphName = ComponentProps<typeof Glyph>["name"];
 
@@ -199,7 +200,7 @@ export default function AIFeatures({ preview = false }: { preview?: boolean }) {
           </Reveal>
           <Reveal delay={160}>
             <p className="lead">
-              Cuatro motores de IA viven dentro de Nexo, conectados a tus datos.
+              Cuatro motores de IA viven dentro de <Brand />, conectados a tus datos.
               Hablan español neutro, conocen el mercado mexicano y trabajan 24/7.
             </p>
           </Reveal>

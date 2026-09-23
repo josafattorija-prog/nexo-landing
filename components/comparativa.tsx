@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { Reveal } from "./atoms";
+import { Brand } from "@/components/brand";
 
 type CellValue = "SI" | "NO" | "PAR" | "IA";
 
@@ -57,7 +58,7 @@ export default function Comparativa() {
           </Reveal>
           <Reveal delay={160}>
             <p className="lead">
-              Comparamos a Nexo AI con las plataformas líderes en MX y LATAM.
+              Comparamos a <Brand /> con las plataformas líderes en MX y LATAM.
               Datos del análisis de plataforma 2026.
             </p>
           </Reveal>
@@ -70,7 +71,7 @@ export default function Comparativa() {
                 <thead>
                   <tr>
                     <th className="first">Funcionalidad</th>
-                    <th className="us">Nexo AI</th>
+                    <th className="us"><Brand /></th>
                     <th>EasyBroker</th>
                     <th>Tokko</th>
                     <th>Nocnok</th>

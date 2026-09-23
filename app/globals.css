@@ -846,3 +846,7 @@ footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; color: 
 .nav-cta { white-space: nowrap; }
 /* En móvil el CTA vive en el menú hamburguesa (y en el hero) para no encimar el logo */
 @media (max-width: 480px) { .nav-cta { display: none !important; } }
+
+/* Marca en texto: misma forma que el logo del nav */
+.brand-name { font-weight: 800; letter-spacing: -.01em; white-space: nowrap; }
+.brand-ai { color: var(--accent); }

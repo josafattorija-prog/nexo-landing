@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Propiedades, CRM Pipeline, Inbox Omnicanal, Automatizaciones, Sitio Web, App Móvil, Crédito Hipotecario y Contratos NOM-151.",
   openGraph: {
-    title: "Módulos — Nexo AI",
+    title: "Módulos — NexoAI",
     description: "Todo lo que un equipo inmobiliario necesita. Paga solo por lo que usas.",
     url: "https://nexoai.mx/modulos",
   },

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Comparativa from "@/components/comparativa";
 import CTABand from "@/components/cta";
 import { Reveal, Glyph } from "@/components/atoms";
 import { CTA_LABEL } from "@/lib/cta";
+import { BUSINESS } from "@/lib/business";
 
 export const metadata: Metadata = {
   title: "Comparativa 2026",
   description:
-    "Tabla comparativa completa: Nexo AI vs EasyBroker vs Tokko vs Nocnok vs AlterEstate vs kvCORE. Análisis de plataforma 2026.",
+    "Tabla comparativa completa: NexoAI vs EasyBroker vs Tokko vs Nocnok vs AlterEstate vs kvCORE. Análisis de plataforma 2026.",
   openGraph: {
-    title: "Comparativa 2026 — Nexo AI",
+    title: "Comparativa 2026 — NexoAI",
     description: "El único CRM inmobiliario que marca todas las casillas en el mercado mexicano.",
     url: "https://nexoai.mx/comparativa",
   },
@@ -32,7 +32,7 @@ export default function ComparativaPage() {
           <Reveal delay={80}>
             <p style={{ marginTop: 14, fontSize: 13, color: "var(--muted)" }}>
               Migración asistida desde EasyBroker, Tokko o tu hoja de cálculo ·{" "}
-              <Link href="/contacto" style={{ color: "var(--accent)" }}>Hablar con ventas →</Link>
+              <a href={BUSINESS.whatsappHref} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent)" }}>Hablar con ventas →</a>
             </p>
           </Reveal>
         </div>

@@ -3,6 +3,7 @@
 import { useState, useTransition, useRef } from "react";
 import { sendContact, type ContactState } from "@/app/actions/contact";
 import { Reveal, Glyph } from "./atoms";
+import { Brand } from "@/components/brand";
 
 export default function Contact() {
   const [state, setState] = useState<ContactState>({ status: "idle" });
@@ -29,7 +30,7 @@ export default function Contact() {
           </Reveal>
           <Reveal delay={160}>
             <p className="lead">
-              Agenda una demo personalizada. Un especialista de Nexo AI
+              Agenda una demo personalizada. Un especialista de <Brand />
               te muestra la plataforma adaptada a tu agencia.
             </p>
           </Reveal>

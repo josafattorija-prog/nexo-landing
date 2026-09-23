@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BUSINESS, fullAddress } from "@/lib/business";
+import { Brand } from "@/components/brand";
 
 export const metadata: Metadata = {
   title: "Sobre nosotros",
   description:
-    "Quién está detrás de Nexo AI: un CRM inmobiliario All-in-One construido en Puebla, México, para el mercado mexicano.",
+    "Quién está detrás de NexoAI: un CRM inmobiliario All-in-One construido en Puebla, México, para el mercado mexicano.",
   openGraph: {
-    title: "Sobre nosotros — Nexo AI",
+    title: "Sobre nosotros — NexoAI",
     description: "Un CRM inmobiliario hecho en México, para inmobiliarias mexicanas.",
     url: "https://nexoai.mx/sobre-nosotros",
   },
@@ -23,7 +24,7 @@ export default function SobreNosotrosPage() {
 
         <div className="legal-intro">
           <p>
-            {BUSINESS.brand} es un CRM inmobiliario All-in-One construido en Puebla, México,
+            <Brand /> es un CRM inmobiliario All-in-One construido en Puebla, México,
             para el mercado mexicano.
           </p>
         </div>
@@ -38,7 +39,7 @@ export default function SobreNosotrosPage() {
             un lugar donde se pierde un prospecto.
           </p>
           <p>
-            {BUSINESS.brand} junta ese flujo en una sola plataforma: captación, publicación,
+            <Brand /> junta ese flujo en una sola plataforma: captación, publicación,
             mensajería omnicanal, pipeline de ventas y análisis de mercado sobre la misma base de
             datos, con inteligencia artificial que entiende el contexto del sector inmobiliario
             mexicano.

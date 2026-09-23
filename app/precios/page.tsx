@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Pricing from "@/components/pricing";
 import CTABand from "@/components/cta";
 import { Reveal, Glyph } from "@/components/atoms";
 import { CTA_LABEL } from "@/lib/cta";
+import { BUSINESS } from "@/lib/business";
 
 export const metadata: Metadata = {
   title: "Precios y planes",
   description:
     "Planes Base (gratis), Starter ($600 MXN), Pro ($800 MXN) y Enterprise. Sin contratos, cancela cuando quieras. Ahorra 30% con plan anual.",
   openGraph: {
-    title: "Precios — Nexo AI",
+    title: "Precios — NexoAI",
     description: "Empieza gratis y escala cuando estés listo. Sin contratos, cancela cuando quieras.",
     url: "https://nexoai.mx/precios"
   },
@@ -32,7 +32,7 @@ export default function PreciosPage() {
           <Reveal delay={80}>
             <p style={{ marginTop: 14, fontSize: 13, color: "var(--muted)" }}>
               ¿Tienes dudas sobre qué plan elegir?{" "}
-              <Link href="/contacto" style={{ color: "var(--accent)" }}>Hablar con ventas →</Link>
+              <a href={BUSINESS.whatsappHref} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent)" }}>Hablar con ventas →</a>
             </p>
           </Reveal>
         </div>

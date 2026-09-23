@@ -4,9 +4,9 @@ import Contact from "@/components/contact";
 export const metadata: Metadata = {
   title: "Contacto",
   description:
-    "Agenda una demo personalizada de Nexo AI. Migración asistida desde EasyBroker, Tokko o tu hoja de cálculo en 24 horas.",
+    "Agenda una demo personalizada de NexoAI. Migración asistida desde EasyBroker, Tokko o tu hoja de cálculo en 24 horas.",
   openGraph: {
-    title: "Contacto — Nexo AI",
+    title: "Contacto — NexoAI",
     description: "Un especialista te muestra la plataforma adaptada a tu agencia.",
     url: "https://nexoai.mx/contacto",
   },

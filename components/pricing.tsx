@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Reveal, Glyph } from "./atoms";
 import { CTA_LABEL } from "@/lib/cta";
+import { withBrand } from "@/components/brand";
 
 type Interval = "monthly" | "quarterly" | "semiannual" | "annual";
 
@@ -163,7 +164,7 @@ function TierCard({ t, interval, previewOnly = false }: {
       <ul style={{ flex: 1 }}>
         {featsToShow.map((f, fi) => (
           <li key={fi} className={f.startsWith(INHERIT_PREFIX) ? "tier-inherit" : ""}>
-            {f}
+            {withBrand(f)}
           </li>
         ))}
         {previewOnly && remaining > 0 && (

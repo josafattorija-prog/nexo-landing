@@ -51,7 +51,7 @@ export async function sendQuickContact(
   let mailOk = false;
   try {
     await resend.emails.send({
-      from:    "Nexo AI <noreply@nexoai.mx>",
+      from:    "NexoAI <noreply@nexoai.mx>",
       to:      ["contacto@nexoai.mx"],
       replyTo: email,
       subject: `Lead rápido · ${nombre}`,

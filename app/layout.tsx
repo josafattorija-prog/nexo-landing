@@ -22,17 +22,17 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Nexo AI — La IA del sector inmobiliario",
-    template: "%s | Nexo AI",
+    default: "NexoAI — La IA del sector inmobiliario",
+    template: "%s | NexoAI",
   },
   description:
     "El primer CRM inmobiliario All-in-One de México. Une WhatsApp, Instagram, Facebook y Email en un solo buzón, automatiza el ciclo de venta y cierra más operaciones con IA entrenada en bienes raíces.",
   openGraph: {
-    title: "Nexo AI — La IA del sector inmobiliario",
+    title: "NexoAI — La IA del sector inmobiliario",
     description:
       "CRM All-in-One para agencias inmobiliarias en México. IA, omnicanalidad y datos de mercado locales.",
     url: "https://nexoai.mx",
-    siteName: "Nexo AI",
+    siteName: "NexoAI",
     locale: "es_MX",
     type: "website",
   },

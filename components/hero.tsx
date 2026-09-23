@@ -2,6 +2,7 @@
 
 import { Reveal, Glyph } from "./atoms";
 import { CTA_LABEL } from "@/lib/cta";
+import { Brand } from "@/components/brand";
 
 export default function Hero() {
   return (
@@ -25,7 +26,7 @@ export default function Hero() {
 
           <Reveal delay={220}>
             <p className="lead">
-              Nexo AI es el primer CRM inmobiliario All-in-One de México: une
+              <Brand /> es el primer CRM inmobiliario All-in-One de México: une
               <strong style={{ color: "var(--text)" }}> WhatsApp, Instagram, Facebook y Email</strong> en un solo buzón, automatiza el
               ciclo de venta y cierra más operaciones con una IA entrenada en bienes raíces.
             </p>

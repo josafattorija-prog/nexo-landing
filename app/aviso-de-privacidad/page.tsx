@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import LegalPage from "@/components/legal-page";
 import { BUSINESS, fullAddress, LEGAL_LAST_UPDATED } from "@/lib/business";
+import { Brand } from "@/components/brand";
 
 export const metadata: Metadata = {
   title: "Aviso de Privacidad",
   description:
-    "Aviso de Privacidad Integral de Nexo AI conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).",
+    "Aviso de Privacidad Integral de NexoAI conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).",
   openGraph: {
-    title: "Aviso de Privacidad — Nexo AI",
-    description: "Cómo Nexo AI trata los datos personales de sus prospectos y clientes.",
+    title: "Aviso de Privacidad — NexoAI",
+    description: "Cómo NexoAI trata los datos personales de sus prospectos y clientes.",
     url: "https://nexoai.mx/aviso-de-privacidad",
   },
   robots: { index: true, follow: true },
@@ -26,7 +27,7 @@ export default function AvisoDePrivacidadPage() {
           El presente Aviso de Privacidad se emite en cumplimiento de la Ley Federal de
           Protección de Datos Personales en Posesión de los Particulares, su Reglamento y los
           Lineamientos del Aviso de Privacidad, y describe cómo tratamos los datos personales
-          de quienes contactan o contratan <strong>{BUSINESS.brand}</strong>.
+          de quienes contactan o contratan <strong><Brand /></strong>.
         </p>
       }
       sections={[
@@ -37,7 +38,7 @@ export default function AvisoDePrivacidadPage() {
               <p>
                 <strong>{BUSINESS.legalName}</strong>, con Registro Federal de Contribuyentes{" "}
                 <strong>{BUSINESS.rfc}</strong>, quien opera comercialmente bajo la marca{" "}
-                <strong>{BUSINESS.brand}</strong>, es el responsable del tratamiento de sus
+                <strong><Brand /></strong>, es el responsable del tratamiento de sus
                 datos personales.
               </p>
               <ul>
@@ -88,7 +89,7 @@ export default function AvisoDePrivacidadPage() {
               <p>
                 Adicionalmente, y sólo si usted no manifiesta su oposición, podemos utilizar sus
                 datos para enviarle comunicaciones sobre novedades, contenidos y promociones de{" "}
-                {BUSINESS.brand}.
+                <Brand />.
               </p>
               <p>
                 <strong>
@@ -187,7 +188,7 @@ export default function AvisoDePrivacidadPage() {
           heading: "Datos tratados por cuenta de nuestros clientes",
           body: (
             <p>
-              Cuando una inmobiliaria contrata {BUSINESS.brand}, los datos de los prospectos que
+              Cuando una inmobiliaria contrata <Brand />, los datos de los prospectos que
               ella capta a través de la plataforma son tratados por nosotros en calidad de{" "}
               <strong>encargado</strong>: la inmobiliaria es el responsable de esos datos y quien
               define las finalidades. Cada inmobiliaria publica su propio aviso de privacidad en

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "IA entrenada en bienes raíces: redacción automática, lead scoring conductual, match cliente-propiedad y forecast de cierre. Para el mercado mexicano.",
   openGraph: {
-    title: "Inteligencia Artificial — Nexo AI",
+    title: "Inteligencia Artificial — NexoAI",
     description: "CRM inmobiliario con IA real para México.",
     url: "https://nexoai.mx/ia",
   },

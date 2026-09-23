@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Glyph } from "./atoms";
 import type { ComponentProps } from "react";
 import { BUSINESS, fullAddress } from "@/lib/business";
+import { Brand } from "@/components/brand";
 
 type GlyphName = ComponentProps<typeof Glyph>["name"];
 
@@ -22,8 +23,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="foot-col">
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-              <img src="/nexo-logo-light.svg" alt="Nexo AI" width={42} height={42} className="logo-light" />
-              <img src="/nexo-logo-dark.svg" alt="Nexo AI" width={42} height={42} className="logo-dark" />
+              <img src="/nexo-logo-light.svg" alt="NexoAI" width={42} height={42} className="logo-light" />
+              <img src="/nexo-logo-dark.svg" alt="NexoAI" width={42} height={42} className="logo-dark" />
               <div>
                 <div style={{ fontWeight: 800, fontSize: 18, color: "var(--text)" }}>
                   Nexo<span style={{ color: "var(--accent)" }}>AI</span>
@@ -100,7 +101,7 @@ export default function Footer() {
         </div>
 
         <div className="foot-bottom">
-          <span>© 2026 Nexo AI · nexoai.mx · Hecho en México</span>
+          <span>© 2026 <Brand /> · nexoai.mx · Hecho en México</span>
           <span>Stack · Next.js · Claude · AWS · NOM-151</span>
         </div>
       </div>

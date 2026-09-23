@@ -12,7 +12,7 @@
 
 export const BUSINESS = {
   /** Nombre comercial / marca */
-  brand: 'Nexo AI',
+  brand: 'NexoAI',
 
   /** Razón social — persona física con actividad empresarial */
   legalName: 'JOSAFAT TORIJA GONZALEZ',

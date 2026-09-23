@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import LegalPage from "@/components/legal-page";
 import { BUSINESS, fullAddress, LEGAL_LAST_UPDATED } from "@/lib/business";
+import { Brand } from "@/components/brand";
 
 export const metadata: Metadata = {
   title: "Términos y Condiciones",
   description:
-    "Términos y Condiciones de uso del servicio Nexo AI, CRM inmobiliario All-in-One para México.",
+    "Términos y Condiciones de uso del servicio NexoAI, CRM inmobiliario All-in-One para México.",
   openGraph: {
-    title: "Términos y Condiciones — Nexo AI",
-    description: "Condiciones de contratación y uso de la plataforma Nexo AI.",
+    title: "Términos y Condiciones — NexoAI",
+    description: "Condiciones de contratación y uso de la plataforma NexoAI.",
     url: "https://nexoai.mx/terminos",
   },
   robots: { index: true, follow: true },
@@ -24,7 +25,7 @@ export default function TerminosPage() {
       intro={
         <p>
           Estos Términos y Condiciones rigen el acceso y uso de la plataforma{" "}
-          <strong>{BUSINESS.brand}</strong>, operada por <strong>{BUSINESS.legalName}</strong>,
+          <strong><Brand /></strong>, operada por <strong>{BUSINESS.legalName}</strong>,
           RFC {BUSINESS.rfc}, con domicilio en {fullAddress()}. Al crear una cuenta o utilizar
           el servicio, usted acepta estos términos en su totalidad.
         </p>
@@ -34,7 +35,7 @@ export default function TerminosPage() {
           heading: "Objeto del servicio",
           body: (
             <p>
-              {BUSINESS.brand} es un servicio de software en la nube (SaaS) que ofrece a
+              <Brand /> es un servicio de software en la nube (SaaS) que ofrece a
               agencias y asesores inmobiliarios herramientas de gestión de propiedades,
               administración de prospectos, mensajería omnicanal, análisis de mercado y
               asistencia mediante inteligencia artificial. El servicio se presta &ldquo;tal

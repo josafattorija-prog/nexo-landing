@@ -52,7 +52,7 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
   let mailOk = false;
   try {
     await resend.emails.send({
-      from:    "Nexo AI <noreply@nexoai.mx>",
+      from:    "NexoAI <noreply@nexoai.mx>",
       to:      ["contacto@nexoai.mx"],
       replyTo: email,
       subject: `Nuevo lead · ${nombre} · ${agencia} · ${equipo}`,

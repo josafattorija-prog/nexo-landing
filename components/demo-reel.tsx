@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./atoms";
+import { Brand } from "@/components/brand";
 
 export default function DemoReel() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -37,7 +38,7 @@ export default function DemoReel() {
         <div className="section-head center">
           <Reveal><span className="eyebrow">Demo · 45 segundos</span></Reveal>
           <Reveal delay={80}>
-            <h2>Mira a Nexo AI <span className="em">trabajar</span>.</h2>
+            <h2>Mira a <Brand /> <span className="em">trabajar</span>.</h2>
           </Reveal>
           <Reveal delay={160}>
             <p className="lead">

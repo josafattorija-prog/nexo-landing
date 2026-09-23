@@ -1,5 +1,6 @@
 import { Reveal, Glyph } from "./atoms";
 import { CTA_LABEL } from "@/lib/cta";
+import { BUSINESS } from "@/lib/business";
 
 export default function CTABand() {
   return (
@@ -21,7 +22,7 @@ export default function CTABand() {
           <Reveal delay={220}>
             <div className="cta-actions">
               <a href="https://app.nexoai.mx/sign-up" className="btn btn-primary"><Glyph name="spark" size={16} /> {CTA_LABEL}</a>
-              <a href="#contacto" className="btn btn-ghost">Hablar con ventas <Glyph name="arrow" size={14} /></a>
+              <a href={BUSINESS.whatsappHref} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">Hablar con ventas <Glyph name="arrow" size={14} /></a>
             </div>
           </Reveal>
           <Reveal delay={280}>

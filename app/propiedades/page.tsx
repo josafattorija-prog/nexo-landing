@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { Reveal } from "@/components/atoms";
 import { CTA_LABEL } from "@/lib/cta";
+import { Brand } from "@/components/brand";
 
 interface PropertyOrg {
   name: string;
@@ -199,7 +200,7 @@ export default function PropiedadesPage() {
             </Reveal>
             <Reveal delay={160}>
               <p className="lead">
-                Propiedades compartidas por asesores NexoAI. Cierra más operaciones co-brokering.
+                Propiedades compartidas por asesores <Brand />. Cierra más operaciones co-brokering.
               </p>
             </Reveal>
           </div>
