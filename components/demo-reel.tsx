@@ -1,6 +1,36 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./atoms";
 
 export default function DemoReel() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [soundOn, setSoundOn] = useState(false);
+
+  // Pausa el video cuando sale de pantalla y lo reanuda al volver (ahorra CPU/batería).
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(video);
+    return () => io.disconnect();
+  }, []);
+
+  function toggleSound() {
+    const video = videoRef.current;
+    if (!video) return;
+    const next = !soundOn;
+    video.muted = !next;
+    if (next) video.play().catch(() => {});
+    setSoundOn(next);
+  }
+
   return (
     <section className="section tight" id="demo">
       <div className="shell">
@@ -18,7 +48,26 @@ export default function DemoReel() {
         </div>
         <Reveal delay={120}>
           <div className="demo-frame">
-            <iframe src="/demo-nexoai.html" title="Demo NexoAI — la IA trabajando" loading="lazy" />
+            <video
+              ref={videoRef}
+              src="/nexo-demo.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="Demo NexoAI — la IA trabajando"
+              onClick={toggleSound}
+            />
+            <button
+              type="button"
+              className="demo-sound"
+              onClick={toggleSound}
+              aria-pressed={soundOn}
+              aria-label={soundOn ? "Silenciar" : "Activar sonido"}
+            >
+              {soundOn ? "🔊 Sonido activado" : "🔇 Activar sonido"}
+            </button>
           </div>
         </Reveal>
       </div>
