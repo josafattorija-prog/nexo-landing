@@ -65,7 +65,7 @@ export default function Hero() {
         </div>
 
         {/* N-Bot periodic table card */}
-        <Reveal delay={500}>
+        <Reveal delay={500} style={{ width: "100%", paddingBottom: 40 }}>
           <div className="pt-stage">
             <div className="pt-antenna" />
             <div className="pt-card">
@@ -78,7 +78,7 @@ export default function Hero() {
                 <div className="pt-eye right" />
               </div>
               <div className="pt-rule" />
-              <div className="pt-name">NEXO</div>
+              <div className="pt-name">Nexo<span className="pt-name-ai">AI</span></div>
               <div className="pt-tag">Tabla periódica · elemento N-Bot</div>
             </div>
 

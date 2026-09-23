@@ -365,7 +365,8 @@ p { margin: 0; line-height: 1.55; }
 .pt-eye.left  { top: 46%; left: 34%; }
 .pt-eye.right { top: 46%; right: 34%; }
 @keyframes blink { 0%,42%,46%,100% { transform: scaleY(1) } 44% { transform: scaleY(.1) } }
-.pt-name { position: absolute; left: 0; right: 0; bottom: 48px; text-align: center; font-weight: 800; font-size: 32px; letter-spacing: .42em; color: #04220F; }
+.pt-name { position: absolute; left: 0; right: 0; bottom: 48px; text-align: center; font-weight: 800; font-size: 32px; letter-spacing: .08em; color: #04220F; }
+.pt-name-ai { color: #34D399; }
 .pt-rule { position: absolute; left: 18%; right: 18%; bottom: 38px; height: 2px; background: rgba(4,34,15,.4); }
 .pt-tag { position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .32em; color: rgba(4,34,15,.55); text-transform: uppercase; }
 
@@ -850,3 +851,14 @@ footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; color: 
 /* Marca en texto: misma forma que el logo del nav */
 .brand-name { font-weight: 800; letter-spacing: -.01em; white-space: nowrap; }
 .brand-ai { color: var(--accent); }
+
+/* Tarjeta de la mascota del hero: escala proporcional al ancho (móvil incluido) */
+.pt-stage { container-type: inline-size; }
+.pt-N    { font-size: 58cqw; padding-bottom: 8cqw; }
+.pt-ai   { font-size: 7cqw; top: 6cqw; left: 6.5cqw; }
+.pt-name { font-size: 6.6cqw; bottom: 10cqw; }
+.pt-rule { bottom: 8cqw; }
+.pt-tag  { font-size: max(8px, 2cqw); bottom: 3.3cqw; }
+.pt-eye  { width: 8.8cqw; height: 8.8cqw; }
+.pt-eye::before { width: 3.8cqw; height: 3.8cqw; }
+.pt-eye.left, .pt-eye.right { top: 38%; }
