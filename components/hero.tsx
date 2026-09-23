@@ -25,8 +25,8 @@ export default function Hero() {
 
           <Reveal delay={220}>
             <p className="lead">
-              Nexo AI es el primer CRM inmobiliario All-in-One de México: publica en
-              <strong style={{ color: "var(--text)" }}> 10 portales</strong>, automatiza el
+              Nexo AI es el primer CRM inmobiliario All-in-One de México: une
+              <strong style={{ color: "var(--text)" }}> WhatsApp, Instagram, Facebook y Email</strong> en un solo buzón, automatiza el
               ciclo de venta y cierra más operaciones con una IA entrenada en bienes raíces.
             </p>
           </Reveal>
@@ -85,7 +85,7 @@ export default function Hero() {
             <div className="pt-orbit">
               <div className="tag t1"><span className="d" /> WhatsApp · lead nuevo</div>
               <div className="tag t2"><span className="d" /> Match IA · 94%</div>
-              <div className="tag t3"><span className="d" /> Inmuebles24 · publicado</div>
+              <div className="tag t3"><span className="d" /> Sitio web · publicado</div>
               <div className="tag t4"><span className="d" /> Crédito · pre-aprobado</div>
               <div className="tag t5"><span className="d" /> Redes sociales · conectadas</div>
             </div>

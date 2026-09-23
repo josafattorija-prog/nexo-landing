@@ -53,7 +53,6 @@ const tiers: Tier[] = [
       "1 usuario",
       "Inbox Omnicanal",
       "Ficha PDF de propiedad",
-      "Publicación en portales (básico)",
     ],
   },
   {
