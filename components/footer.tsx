@@ -79,11 +79,43 @@ export default function Footer() {
             <h4>Empresa</h4>
             <ul>
               <li><Link href="/sobre-nosotros">Sobre nosotros</Link></li>
-              <li><Link href="/contacto">Contacto y demo</Link></li>
-              <li><a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
-              <li><a href={`mailto:${BUSINESS.supportEmail}`}>{BUSINESS.supportEmail}</a></li>
-              <li><a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a></li>
-              <li><a href={BUSINESS.whatsappHref}>WhatsApp</a></li>
+
+              <li className="foot-channel">
+                <span className="foot-channel-label">Ventas</span>
+                <a
+                  href={BUSINESS.salesWhatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="foot-channel-link"
+                  aria-label={`WhatsApp de ventas ${BUSINESS.salesPhone}`}
+                >
+                  <Glyph name="whats" size={15} />
+                  {BUSINESS.salesPhone}
+                </a>
+                <a href={`mailto:${BUSINESS.email}`} className="foot-channel-link">
+                  <Glyph name="mail" size={15} />
+                  {BUSINESS.email}
+                </a>
+              </li>
+
+              <li className="foot-channel">
+                <span className="foot-channel-label">Soporte</span>
+                <a
+                  href={BUSINESS.supportWhatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="foot-channel-link"
+                  aria-label={`WhatsApp de soporte ${BUSINESS.supportPhone}`}
+                >
+                  <Glyph name="whats" size={15} />
+                  {BUSINESS.supportPhone}
+                </a>
+                <a href={`mailto:${BUSINESS.supportEmail}`} className="foot-channel-link">
+                  <Glyph name="mail" size={15} />
+                  {BUSINESS.supportEmail}
+                </a>
+              </li>
+
               <li><Link href="/terminos">Términos y condiciones</Link></li>
               <li><Link href="/aviso-de-privacidad">Aviso de privacidad</Link></li>
             </ul>

@@ -580,6 +580,11 @@ footer { border-top: 1px solid var(--border-soft); padding: 48px 0 32px; color: 
 .foot-col h4 { font-size: 13px; font-family: var(--font-mono), monospace; letter-spacing: .18em; color: var(--muted); text-transform: uppercase; font-weight: 500; margin: 0 0 14px; }
 .foot-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .foot-col ul a:hover { color: var(--text); transition: color .15s ease; }
+/* Bloques de Ventas / Soporte en el pie: etiqueta + canales con icono */
+.foot-channel { display: flex; flex-direction: column; gap: 4px; }
+.foot-channel-label { font-size: 12px; font-weight: 600; color: var(--text); }
+.foot-channel-link { display: inline-flex; align-items: center; gap: 7px; color: var(--text-dim); }
+.foot-channel-link:hover { color: var(--accent); transition: color .15s ease; }
 /* ===== Documentos legales (aviso de privacidad, términos, sobre nosotros) ===== */
 .legal-doc { max-width: 760px; }
 .legal-eyebrow { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .18em; color: var(--accent); text-transform: uppercase; margin: 0 0 14px; }

@@ -38,6 +38,16 @@ export const BUSINESS = {
   whatsapp: '+52 221 367 2612',
   whatsappHref: 'https://wa.me/5212213672612',
 
+  /** Ventas: número y correo que se publican para prospectos. */
+  salesPhone: '+52 222 250 5575',
+  salesPhoneHref: 'tel:+522222505575',
+  salesWhatsappHref: 'https://wa.me/522222505575',
+
+  /** Soporte: mismo número del negocio (el declarado ante Meta). */
+  supportPhone: '+52 221 367 2612',
+  supportPhoneHref: 'tel:+522213672612',
+  supportWhatsappHref: 'https://wa.me/5212213672612',
+
   email: 'contacto@nexoai.mx',
   supportEmail: 'soporte@nexoai.mx',
 
