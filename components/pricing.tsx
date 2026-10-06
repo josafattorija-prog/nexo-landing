@@ -38,7 +38,7 @@ const tiers: Tier[] = [
     id: "BASE · 01",
     icon: "🌱",
     name: "Base",
-    tag: "Empieza gratis para siempre",
+    tag: "90 días gratis para empezar",
     prices: {
       monthly:    { monthly: 0, total: 0 },
       quarterly:  { monthly: 0, total: 0 },
@@ -50,6 +50,7 @@ const tiers: Tier[] = [
     ctaStyle: "ghost",
     popular: false,
     feats: [
+      "90 días gratis, sin tarjeta",
       "Hasta 10 propiedades",
       "1 usuario",
       "Inbox Omnicanal",
@@ -62,10 +63,10 @@ const tiers: Tier[] = [
     name: "Starter",
     tag: "Para asesores que arrancan en serio",
     prices: {
-      monthly:    { monthly: 600, total: 600 },
-      quarterly:  { monthly: 540, total: 1620 },
-      semiannual: { monthly: 480, total: 2880 },
-      annual:     { monthly: 420, total: 5040 },
+      monthly:    { monthly: 499, total: 499 },
+      quarterly:  { monthly: 449, total: 1347 },
+      semiannual: { monthly: 399, total: 2395 },
+      annual:     { monthly: 349, total: 4192 },
     },
     href: "https://app.nexoai.mx/sign-up?plan=STARTER",
     cta: CTA_LABEL,
@@ -89,10 +90,10 @@ const tiers: Tier[] = [
     name: "Pro",
     tag: "Para inmobiliarias que escalan",
     prices: {
-      monthly:    { monthly: 800, total: 800 },
-      quarterly:  { monthly: 720, total: 2160 },
-      semiannual: { monthly: 640, total: 3840 },
-      annual:     { monthly: 560, total: 6720 },
+      monthly:    { monthly: 699, total: 699 },
+      quarterly:  { monthly: 629, total: 1887 },
+      semiannual: { monthly: 559, total: 3355 },
+      annual:     { monthly: 489, total: 5872 },
     },
     href: "https://app.nexoai.mx/sign-up?plan=PRO",
     cta: CTA_LABEL,
@@ -139,6 +140,9 @@ function TierCard({ t, interval, previewOnly = false }: {
         {price.monthly === 0 ? (
           <div style={{ fontSize: 42, fontWeight: 900, letterSpacing: "-.02em", lineHeight: 1 }}>
             Gratis
+            <div style={{ fontSize: 13, color: "var(--accent)", fontFamily: "var(--font-mono)", fontWeight: 500, marginTop: 8, letterSpacing: 0 }}>
+              por 90 días · luego elige Starter o Pro
+            </div>
           </div>
         ) : (
           <div>
@@ -197,7 +201,7 @@ export default function Pricing({ preview = false }: { preview?: boolean }) {
               <h2>Elige el plan perfecto<br /><span className="em">para tu agencia</span></h2>
             </Reveal>
             <Reveal delay={160}>
-              <p className="lead">Empieza gratis y escala cuando estés listo. Sin contratos.</p>
+              <p className="lead">Empieza con 90 días gratis y escala cuando estés listo. Sin contratos.</p>
             </Reveal>
           </div>
 
@@ -233,7 +237,7 @@ export default function Pricing({ preview = false }: { preview?: boolean }) {
           </Reveal>
           <Reveal delay={80}>
             <p className="lead" style={{ textAlign: "center" }}>
-              Empieza gratis y escala cuando estés listo. Sin contratos, cancela cuando quieras.
+              Empieza con 90 días gratis y escala cuando estés listo. Sin contratos, cancela cuando quieras.
             </p>
           </Reveal>
 

@@ -8,10 +8,10 @@ import { BUSINESS } from "@/lib/business";
 export const metadata: Metadata = {
   title: "Precios y planes",
   description:
-    "Planes Base (gratis), Starter ($600 MXN), Pro ($800 MXN) y Enterprise. Sin contratos, cancela cuando quieras. Ahorra 30% con plan anual.",
+    "Plan Base con 90 días gratis, Starter ($499 MXN/mes) y Pro ($699 MXN/mes). Sin contratos, cancela cuando quieras. Ahorra 30% con plan anual.",
   openGraph: {
     title: "Precios — NexoAI",
-    description: "Empieza gratis y escala cuando estés listo. Sin contratos, cancela cuando quieras.",
+    description: "Empieza con 90 días gratis y escala cuando estés listo. Sin contratos, cancela cuando quieras.",
     url: "https://nexoai.mx/precios"
   },
 };
