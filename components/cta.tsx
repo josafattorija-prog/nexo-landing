@@ -15,7 +15,7 @@ export default function CTABand() {
           </Reveal>
           <Reveal delay={160}>
             <p>
-              30 días gratis. Sin tarjeta. Migración asistida desde EasyBroker, Tokko o tu hoja de cálculo.
+              90 días gratis. Sin tarjeta. Migración asistida desde EasyBroker, Tokko o tu hoja de cálculo.
               Onboarding personalizado en 24 horas.
             </p>
           </Reveal>
@@ -27,7 +27,7 @@ export default function CTABand() {
           </Reveal>
           <Reveal delay={280}>
             <div style={{ marginTop: 36, display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", color: "var(--muted)", fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: ".14em", textTransform: "uppercase" }}>
-              <span>● 30 días gratis</span>
+              <span>● 90 días gratis</span>
               <span>● Sin permanencia</span>
               <span>● Soporte en español</span>
               <span>● Datos en MX</span>
